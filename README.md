@@ -15,7 +15,7 @@
   - `useLocalStorage` &mdash; hook for managing local storage. Supports SSR rendering.
 <br/>
 <br/>
-<br/>
+
 - **State**
   - `ReducerProvider` &mdash; Provider to wrap outer components, takes reducer and initial state.
   - `withReducerProvider` &mdash; HOC for ReducerProvider Provider to top component.
