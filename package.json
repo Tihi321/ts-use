@@ -3,15 +3,22 @@
   "version": "1.0.0",
   "description": "Collection of React Hooks",
   "main": "lib/index.js",
-  "types": "lib",
+  "module": "esm/index.js",
+  "types": "esm/index.d.ts",
   "bin": "lib/index.js",
+  "files": [
+    "lib/",
+    "esm/"
+  ],
   "keywords": [
     "react",
     "local storage",
     "hooks"
   ],
   "scripts": {
-    "build": "tsc -p .",
+    "build:cjs": "tsc -p .",
+    "build:es": "tsc -m esNext --outDir esm",
+    "build": "yarn build:cjs && yarn build:es",
     "lint": "eslint ./src --ext .tsx",
     "lint:fix": "yarn lint --fix",
     "test": "jest --maxWorkers 2",
