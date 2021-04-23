@@ -1,0 +1,245 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["."],
+        "extensions": [".ts",".tsx", ".d.ts"]
+      },
+    }
+  },
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true,
+    "commonjs": true
+  },
+  "extends": [
+    "airbnb", 
+    "prettier", 
+    "eslint:recommended", 
+    "plugin:eslint-comments/recommended", 
+    "plugin:react/recommended", 
+    "prettier/react", 
+    "plugin:i18n-json/recommended", 
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "prettier", 
+    "simple-import-sort", 
+    "import", 
+    "i18next", 
+    "react-hooks", 
+    "jsx-a11y",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    "prettier/prettier": "error",
+    "linebreak-style": 0,
+    "prefer-destructuring": [
+      "error",
+      {
+        "array": true,
+        "object": true
+      },
+      {
+        "enforceForRenamedProperties": false
+      }
+    ],
+    "no-trailing-spaces": "error",
+    "no-undef": 2,
+    "arrow-body-style": [
+      "error",
+      "as-needed"
+    ],
+    "no-underscore-dangle": ["warn", {"allow": ["_id"]}],
+    "no-mixed-spaces-and-tabs": [
+      "error",
+      "smart-tabs"
+    ],
+    "radix": "off",
+    "arrow-parens": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "react/require-default-props": "off",
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "curly": ["warn", "all"],
+    "sort-imports": "off",
+    "simple-import-sort/sort": "error",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": "*", "next": "if" },
+      { "blankLine": "always", "prev": "if", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "while" },
+      { "blankLine": "always", "prev": "while", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": "do" },
+      { "blankLine": "always", "prev": "do", "next": "*" }
+    ],
+    "max-lines-per-function": ["warn", 60],
+    "max-depth": ["error", 4],
+    "id-length": ["error", {
+      "min": 3,
+      "exceptions": ["id", "to"]
+    }],
+    "no-dupe-keys": "error",
+    "no-dupe-else-if": "error",
+    "no-duplicate-case": "error",
+    "no-func-assign": "error",
+    "no-import-assign": "error",
+    "no-obj-calls": "error",
+    "no-prototype-builtins": "error",
+    "no-sparse-arrays": "warn",
+    "no-unexpected-multiline": "warn",
+    "use-isnan": "error",
+    "valid-typeof": "error",
+    "no-useless-catch": "warn",
+    "camelcase": "warn",
+    "comma-style": ["error", "last"],
+    "jsx-quotes": "error",
+    "key-spacing": ["error", {
+      "beforeColon": false,
+      "afterColon": true,
+      "mode": "strict"
+    }],
+    "keyword-spacing": ["error", {
+      "before": true,
+      "after": true
+    }],
+    "lines-between-class-members": ["error", "always"],
+    "lines-around-comment": ["error", {
+      "beforeBlockComment": true,
+      "afterBlockComment": false,
+      "beforeLineComment": true,
+      "afterLineComment": false,
+      "allowBlockStart": true,
+      "allowBlockEnd": false,
+      "allowObjectStart": false,
+      "allowObjectEnd": false,
+      "allowArrayStart": true,
+      "allowArrayEnd": false,
+      "allowClassStart": true,
+      "allowClassEnd": false,
+      "applyDefaultIgnorePatterns": true
+    }],
+    "no-inline-comments": "error",
+    "no-unneeded-ternary": "error",
+    "no-whitespace-before-property": "error",
+    "object-curly-spacing": "error",
+    "semi-spacing": ["error", {
+      "before": false, 
+      "after": true
+    }],
+    "space-before-blocks": "error",
+    "switch-colon-spacing": ["error", {
+      "after": true, 
+      "before": false
+    }],
+    "template-tag-spacing": ["error", "never"],
+
+    // React rules
+    "react/jsx-indent": [2, 2],
+    "react/jsx-indent-props": [2, 2],
+    "react/forbid-prop-types": "off",
+    "react/no-array-index-key": "off",
+    "react/no-unescaped-entities": "off",
+    "react/no-did-update-set-state": "off",
+    "react/no-did-mount-set-state": "off",
+    "react/destructuring-assignment": "off", //["error", "always", { "ignoreClassFields": true }]
+    "react/jsx-fragments": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/state-in-constructor": "off",
+    "react/static-property-placement": "off",
+
+    // jsx-a11y rules
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "labelComponents": ["CustomInputLabel"],
+      "labelAttributes": ["label"],
+      "controlComponents": ["CustomInput"],
+      "depth": 3,
+      "assert": "either"
+    }],
+    "jsx-a11y/anchor-is-valid": "off",
+
+    // import rules
+    "import/extensions": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/order": 0,
+    "import/prefer-default-export": 0,
+    "import/no-unresolved": [
+      2,
+      {
+        "ignore": [
+          "electron"
+        ]
+      }
+    ],
+    "import/named": "off",
+    // i18n rules
+    "i18n-json/valid-message-syntax": ["off", {
+      "syntax": "non-empty-string"
+    }],
+    "i18n-json/valid-json": "error",
+    "i18n-json/sorted-keys": ["off", {
+      "order": "asc",
+      "indentSpaces": 2
+    }],
+    "i18n-json/identical-keys": "off",
+    "i18next/no-literal-string": [
+      "off", 
+      { 
+        "ignoreCallee": ["on", "send", "removeListener", "removeAllListeners", "error", "warn", "info", "debug", "silly"], 
+        "ignoreAttribute": ["kind"], 
+        "ignoreProperty": ["fontFamily", "color", "borderBottom", "cursor", "fontSize", "pathname", "redirect", "type", "kind"],
+        "ignore": ["cursor"]
+      }
+    ],
+
+    // react-hooks rules
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.test.ts",
+        "**/*.test.tsx"
+      ],
+      "env": {
+        "jest": true
+      }
+    },
+    {
+      "files": ["*.json"],
+      "rules": {
+          "prettier/prettier": "off",
+          "no-trailing-spaces": "off"   
+      }
+    },
+    {
+      "files": ["*[.jsx,.tsx]"],
+      "rules": {
+          "max-lines-per-function": ["warn", 150]
+      }
+    },
+    {
+      "files": ["src/**/*"],
+      "plugins": ["only-warn"]
+    }
+  ]
+}
+
