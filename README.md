@@ -1,13 +1,13 @@
 <div align="center">
   <h1>
-    TS-Use
+    TS Use
   </h1>
   <sup>
     React Hooks</a>.</em>
   </sup>
   <br />
   <br />
-  <pre>yarn add <a href="https://www.npmjs.com/package/react-use">ts-use</a></pre>
+  <pre>yarn add ts-use</a></pre>
   <br />
 </div>
 
