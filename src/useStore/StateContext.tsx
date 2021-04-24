@@ -3,11 +3,11 @@ import React, { useContext, useMemo, useState } from "react";
 
 import {
   IStateProvider,
+  TSelector,
   TSetStateKeyOnChange,
   TSetStateOnChange,
   TStateProviderHOC,
-  TStateUseStore,
-  TUseSelector
+  TStateUseStore
 } from "../typings";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, StateContext } from "./context";
@@ -36,11 +36,13 @@ export const useStateStore: TStateUseStore = (Context = StateContext) => {
   };
 };
 
-export const useStateSelector: TUseSelector = selector => {
+export function useStateSelector<T extends TSelector>(
+  selector: T
+): ReturnType<T> {
   const { state } = useStateStore();
 
   return selector(state);
-};
+}
 
 export const StateProvider = ({
   children,

@@ -22,14 +22,12 @@ export type TDispatchOnChange<V = TValue> = (
   action: TAction<V>
 ) => void;
 
-export type TUseSelector<S = TState> = (selector: TSelector<S>) => TValue;
-
 export type TReducerUseStore<S = TState> = (
   Context?: TContextReducer<S>
 ) => {
   state: S;
   stateSelector: TSelector<S>;
-  dispatch: React.DispatchWithoutAction;
+  dispatch: any;
   createAction: TCreateAction;
   dispatchOnChange: TDispatchOnChange;
 };

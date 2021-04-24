@@ -1,6 +1,6 @@
 import React from "react";
 
-export type TValue = object | string | number | boolean | undefined;
+export type TValue = any;
 export type TState<T = any> = T;
 
 export interface IProviderProps<S = TState> {
@@ -8,4 +8,8 @@ export interface IProviderProps<S = TState> {
   initialState: S;
 }
 
-export type TSelector<S = TState> = (state: S) => TValue;
+export type TSelector<S = TState, V = TValue> = (state: S) => V;
+
+export type TUseSelector<S = TState, V = TValue> = (
+  selector: TSelector<S, V>
+) => V;

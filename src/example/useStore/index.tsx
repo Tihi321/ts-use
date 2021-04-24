@@ -1,12 +1,22 @@
 import React from "react";
 
-import { ETheme, getTheme, useSelector, withThemeProvider } from "./store";
+import {
+  useReducerSelector,
+  useReducerStore,
+  withReducerProvider
+} from "../../useStore";
+import { ETheme, getTheme, initialState, reducer, switchTheme } from "./store";
 
 export const ThemeContainer = () => {
-  const theme = useSelector(getTheme);
+  const theme = useReducerSelector(getTheme);
+  const { dispatch } = useReducerStore();
   const themeData = theme === ETheme.Dark ? "Dark" : "Light";
 
-  return <div>{themeData}</div>;
+  return (
+    <button type="button" onClick={() => dispatch(switchTheme())}>
+      {themeData}
+    </button>
+  );
 };
 
-export default withThemeProvider(ThemeContainer);
+export default withReducerProvider(reducer, initialState)(ThemeContainer);
