@@ -5,8 +5,8 @@ import { IProviderProps, TSelector, TState, TValue } from "../typings";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, StateContext } from "./context";
 
-export const useStateStore = () => {
-  const { state, setState } = useContext(StateContext);
+export const useStateStore = (Context = StateContext) => {
+  const { state, setState } = useContext(Context);
 
   const setStateOnChange = (newState: TValue) => {
     if (!isEqual(state, newState)) {
@@ -37,7 +37,8 @@ export const useStateSelector = (selector: TSelector) => {
 
 export const StateProvider = ({
   children,
-  initialState = initialContextState
+  initialState = initialContextState,
+  Context = StateContext
 }: IProviderProps) => {
   const stateArray = useState(initialState);
 
@@ -45,19 +46,20 @@ export const StateProvider = ({
   const contextValue = useMemo(() => ({ state, setState }), [state, setState]);
 
   return (
-    <StateContext.Provider
+    <Context.Provider
       value={{ state: contextValue.state, setState: contextValue.setState }}
     >
       {children}
-    </StateContext.Provider>
+    </Context.Provider>
   );
 };
 
 export const withStateProvider = (
-  initialState: TState = initialContextState
+  initialState: TState = initialContextState,
+  Context = StateContext
   // eslint-disable-next-line react/display-name
 ) => (Component: React.ComponentType<any>) => (props: any) => (
-  <StateProvider initialState={initialState}>
+  <StateProvider Context={Context} initialState={initialState}>
     <Component {...props} />
   </StateProvider>
 );

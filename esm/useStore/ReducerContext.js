@@ -12,8 +12,9 @@ var __assign = (this && this.__assign) || function () {
 import React, { useContext, useMemo, useReducer } from "react";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, ReducerContext } from "./context";
-export var useReducerStore = function () {
-    var _a = useContext(ReducerContext), state = _a.state, dispatch = _a.dispatch;
+export var useReducerStore = function (Context) {
+    if (Context === void 0) { Context = ReducerContext; }
+    var _a = useContext(Context), state = _a.state, dispatch = _a.dispatch;
     var createAction = function (type, payload) { return ({
         type: type,
         payload: payload
@@ -36,17 +37,18 @@ export var useReducerSelector = function (selector) {
     return selector(state);
 };
 export var ReducerProvider = function (_a) {
-    var children = _a.children, reducer = _a.reducer, _b = _a.initialState, initialState = _b === void 0 ? initialContextState : _b;
+    var children = _a.children, reducer = _a.reducer, _b = _a.initialState, initialState = _b === void 0 ? initialContextState : _b, _c = _a.Context, Context = _c === void 0 ? ReducerContext : _c;
     var reducerArray = useReducer(reducer, initialState);
-    var _c = reducerArray, state = _c[0], dispatch = _c[1];
+    var _d = reducerArray, state = _d[0], dispatch = _d[1];
     var contextValue = useMemo(function () { return ({ state: state, dispatch: dispatch }); }, [state, dispatch]);
-    return (React.createElement(ReducerContext.Provider, { value: { state: contextValue.state, dispatch: contextValue.dispatch } }, children));
+    return (React.createElement(Context.Provider, { value: { state: contextValue.state, dispatch: contextValue.dispatch } }, children));
 };
-export var withReducerProvider = function (reducer, initialState
+export var withReducerProvider = function (reducer, initialState, Context
 // eslint-disable-next-line react/display-name
 ) {
     if (initialState === void 0) { initialState = initialContextState; }
-    return function (Component) { return function (props) { return (React.createElement(ReducerProvider, { reducer: reducer, initialState: initialState },
+    if (Context === void 0) { Context = ReducerContext; }
+    return function (Component) { return function (props) { return (React.createElement(ReducerProvider, { Context: Context, reducer: reducer, initialState: initialState },
         React.createElement(Component, __assign({}, props)))); }; };
 };
 //# sourceMappingURL=ReducerContext.js.map

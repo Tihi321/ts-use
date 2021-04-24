@@ -4,8 +4,8 @@ import { IProviderReducerProps, TAction, TSelector, TState } from "../typings";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, ReducerContext } from "./context";
 
-export const useReducerStore = () => {
-  const { state, dispatch } = useContext(ReducerContext);
+export const useReducerStore = (Context = ReducerContext) => {
+  const { state, dispatch } = useContext(Context);
 
   const createAction = (type: string, payload: any) => ({
     type,
@@ -36,7 +36,8 @@ export const useReducerSelector = (selector: TSelector) => {
 export const ReducerProvider = ({
   children,
   reducer,
-  initialState = initialContextState
+  initialState = initialContextState,
+  Context = ReducerContext
 }: IProviderReducerProps) => {
   const reducerArray = useReducer(reducer, initialState);
 
@@ -44,20 +45,25 @@ export const ReducerProvider = ({
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
 
   return (
-    <ReducerContext.Provider
+    <Context.Provider
       value={{ state: contextValue.state, dispatch: contextValue.dispatch }}
     >
       {children}
-    </ReducerContext.Provider>
+    </Context.Provider>
   );
 };
 
 export const withReducerProvider = (
   reducer: any,
-  initialState: TState = initialContextState
+  initialState: TState = initialContextState,
+  Context = ReducerContext
   // eslint-disable-next-line react/display-name
 ) => (Component: React.ComponentType<any>) => (props: any) => (
-  <ReducerProvider reducer={reducer} initialState={initialState}>
+  <ReducerProvider
+    Context={Context}
+    reducer={reducer}
+    initialState={initialState}
+  >
     <Component {...props} />
   </ReducerProvider>
 );

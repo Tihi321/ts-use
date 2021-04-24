@@ -13,8 +13,9 @@ import { isEqual } from "lodash";
 import React, { useContext, useMemo, useState } from "react";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, StateContext } from "./context";
-export var useStateStore = function () {
-    var _a = useContext(StateContext), state = _a.state, setState = _a.setState;
+export var useStateStore = function (Context) {
+    if (Context === void 0) { Context = StateContext; }
+    var _a = useContext(Context), state = _a.state, setState = _a.setState;
     var setStateOnChange = function (newState) {
         if (!isEqual(state, newState)) {
             setState(newState);
@@ -39,17 +40,18 @@ export var useStateSelector = function (selector) {
     return selector(state);
 };
 export var StateProvider = function (_a) {
-    var children = _a.children, _b = _a.initialState, initialState = _b === void 0 ? initialContextState : _b;
+    var children = _a.children, _b = _a.initialState, initialState = _b === void 0 ? initialContextState : _b, _c = _a.Context, Context = _c === void 0 ? StateContext : _c;
     var stateArray = useState(initialState);
-    var _c = stateArray, state = _c[0], setState = _c[1];
+    var _d = stateArray, state = _d[0], setState = _d[1];
     var contextValue = useMemo(function () { return ({ state: state, setState: setState }); }, [state, setState]);
-    return (React.createElement(StateContext.Provider, { value: { state: contextValue.state, setState: contextValue.setState } }, children));
+    return (React.createElement(Context.Provider, { value: { state: contextValue.state, setState: contextValue.setState } }, children));
 };
-export var withStateProvider = function (initialState
+export var withStateProvider = function (initialState, Context
 // eslint-disable-next-line react/display-name
 ) {
     if (initialState === void 0) { initialState = initialContextState; }
-    return function (Component) { return function (props) { return (React.createElement(StateProvider, { initialState: initialState },
+    if (Context === void 0) { Context = StateContext; }
+    return function (Component) { return function (props) { return (React.createElement(StateProvider, { Context: Context, initialState: initialState },
         React.createElement(Component, __assign({}, props)))); }; };
 };
 //# sourceMappingURL=StateContext.js.map
