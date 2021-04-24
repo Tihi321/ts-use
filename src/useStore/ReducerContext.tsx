@@ -1,18 +1,25 @@
 import React, { useContext, useMemo, useReducer } from "react";
 
-import { IProviderReducerProps, TAction, TSelector, TState } from "../typings";
+import {
+  IReducerProvider,
+  TCreateAction,
+  TDispatchOnChange,
+  TReducerProviderHOC,
+  TReducerUseStore,
+  TUseSelector
+} from "../typings";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, ReducerContext } from "./context";
 
-export const useReducerStore = (Context = ReducerContext) => {
+export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
   const { state, dispatch } = useContext(Context);
 
-  const createAction = (type: string, payload: any) => ({
+  const createAction: TCreateAction = (type: string, payload: any) => ({
     type,
     payload
   });
 
-  const dispatchOnChange = (key: string, action: TAction) => {
+  const dispatchOnChange: TDispatchOnChange = (key, action) => {
     if (stateKeyChanged(state, key, action.payload)) {
       dispatch(action);
     }
@@ -27,7 +34,7 @@ export const useReducerStore = (Context = ReducerContext) => {
   };
 };
 
-export const useReducerSelector = (selector: TSelector) => {
+export const useReducerSelector: TUseSelector = selector => {
   const { state } = useReducerStore();
 
   return selector(state);
@@ -38,7 +45,7 @@ export const ReducerProvider = ({
   reducer,
   initialState = initialContextState,
   Context = ReducerContext
-}: IProviderReducerProps) => {
+}: IReducerProvider) => {
   const reducerArray = useReducer(reducer, initialState);
 
   const [state, dispatch] = (reducerArray as unknown) as [any, any];
@@ -53,12 +60,12 @@ export const ReducerProvider = ({
   );
 };
 
-export const withReducerProvider = (
-  reducer: any,
-  initialState: TState = initialContextState,
+export const withReducerProvider: TReducerProviderHOC = (
+  reducer,
+  initialState = initialContextState,
   Context = ReducerContext
   // eslint-disable-next-line react/display-name
-) => (Component: React.ComponentType<any>) => (props: any) => (
+) => Component => (props: any) => (
   <ReducerProvider
     Context={Context}
     reducer={reducer}

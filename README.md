@@ -12,14 +12,14 @@
 </div>
 
 - **Side-effects**
-  - `useLocalStorage` &mdash; hook for managing local storage. Supports SSR rendering.
+  - [`useLocalStorage`](./src/example/localStorage/index.tsx) &mdash; hook for managing local storage. Supports SSR rendering.
 <br/>
 <br/>
 
 - **State**
   - `ReducerProvider` &mdash; Provider to wrap outer components, takes reducer and initial state.
-  - `withReducerProvider` &mdash; HOC for ReducerProvider Provider to top component.
-  - `useReducerStore` &mdash; returns state, selector and functions for for updating the state form context 
-  - `useReducerSelector` &mdash; takes selector and returns value
+  - [`withReducerProvider`](./src/example/useStore/index.tsx) &mdash; HOC for ReducerProvider Provider to top component.
+  - [`useReducerStore`](./src/example/useStore/store/store.ts) &mdash; returns state, selector and functions for for updating the state form context 
+  - [`useReducerSelector`](./src/example/useStore/store/selectors/index.ts) &mdash; takes selector and returns value
   similar hooks for providing simple state without using reducer
   `StateProvider`, `withStateProvider`, `useStateStore`, `useStateSelector`
