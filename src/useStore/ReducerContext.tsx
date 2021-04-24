@@ -6,6 +6,7 @@ import {
   TDispatchOnChange,
   TReducerProviderHOC,
   TReducerUseStore,
+  TSelector,
   TUseSelector
 } from "../typings";
 import { generateSelector, stateKeyChanged } from "../utils";
@@ -34,11 +35,13 @@ export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
   };
 };
 
-export const useReducerSelector: TUseSelector = selector => {
+export function useReducerSelector<T extends TSelector>(
+  selector: T
+): ReturnType<T> {
   const { state } = useReducerStore();
 
   return selector(state);
-};
+}
 
 export const ReducerProvider = ({
   children,
