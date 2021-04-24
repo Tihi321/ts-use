@@ -1,1 +1,0 @@
-{"version":3,"file":"context.d.ts","sourceRoot":"","sources":["../../src/useStore/context.ts"],"names":[],"mappings":";AAEA,OAAO,EAAE,OAAO,EAAE,MAAM,EAAE,MAAM,EAAE,MAAM,YAAY,CAAC;AAErD,eAAO,MAAM,mBAAmB,EAAE,MAAW,CAAC;AAE9C,eAAO,MAAM,cAAc;;wBAGL,OAAO;EAC3B,CAAC;AAEH,eAAO,MAAM,YAAY;;uBAGJ,MAAM;EACzB,CAAC"}

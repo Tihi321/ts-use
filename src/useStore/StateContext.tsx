@@ -1,20 +1,27 @@
 import { isEqual } from "lodash";
 import React, { useContext, useMemo, useState } from "react";
 
-import { IProviderProps, TSelector, TState, TValue } from "../typings";
+import {
+  IStateProvider,
+  TSetStateKeyOnChange,
+  TSetStateOnChange,
+  TStateProviderHOC,
+  TStateUseStore,
+  TUseSelector
+} from "../typings";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, StateContext } from "./context";
 
-export const useStateStore = (Context = StateContext) => {
+export const useStateStore: TStateUseStore = (Context = StateContext) => {
   const { state, setState } = useContext(Context);
 
-  const setStateOnChange = (newState: TValue) => {
+  const setStateOnChange: TSetStateOnChange = newState => {
     if (!isEqual(state, newState)) {
       setState(newState);
     }
   };
 
-  const setStateKeyOnChange = (key: string, value: TState) => {
+  const setStateKeyOnChange: TSetStateKeyOnChange = (key, value) => {
     if (stateKeyChanged(state, key, value)) {
       setState({ ...state, [key]: value });
     }
@@ -29,7 +36,7 @@ export const useStateStore = (Context = StateContext) => {
   };
 };
 
-export const useStateSelector = (selector: TSelector) => {
+export const useStateSelector: TUseSelector = selector => {
   const { state } = useStateStore();
 
   return selector(state);
@@ -39,7 +46,7 @@ export const StateProvider = ({
   children,
   initialState = initialContextState,
   Context = StateContext
-}: IProviderProps) => {
+}: IStateProvider) => {
   const stateArray = useState(initialState);
 
   const [state, setState] = (stateArray as unknown) as [any, any];
@@ -54,8 +61,8 @@ export const StateProvider = ({
   );
 };
 
-export const withStateProvider = (
-  initialState: TState = initialContextState,
+export const withStateProvider: TStateProviderHOC = (
+  initialState = initialContextState,
   Context = StateContext
   // eslint-disable-next-line react/display-name
 ) => (Component: React.ComponentType<any>) => (props: any) => (
