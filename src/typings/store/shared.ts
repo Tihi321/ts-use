@@ -9,7 +9,3 @@ export interface IProviderProps<S = TState> {
 }
 
 export type TSelector<S = TState, V = TValue> = (state: S) => V;
-
-export type TUseSelector<S = TState, V = TValue> = (
-  selector: TSelector<S, V>
-) => V;

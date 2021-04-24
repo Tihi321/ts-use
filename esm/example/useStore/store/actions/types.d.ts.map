@@ -1,0 +1,1 @@
+{"version":3,"file":"types.d.ts","sourceRoot":"","sources":["../../../../../src/example/useStore/store/actions/types.ts"],"names":[],"mappings":"AAAA,oBAAY,YAAY;IACtB,QAAQ,aAAa;IACrB,WAAW,gBAAgB;CAC5B;AAED,oBAAY,OAAO,GAAG;IACpB,IAAI,EAAE,YAAY,CAAC;IACnB,OAAO,CAAC,EAAE,GAAG,CAAC;CACf,CAAC"}

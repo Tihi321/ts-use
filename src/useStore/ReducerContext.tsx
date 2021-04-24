@@ -6,8 +6,7 @@ import {
   TDispatchOnChange,
   TReducerProviderHOC,
   TReducerUseStore,
-  TSelector,
-  TUseSelector
+  TSelector
 } from "../typings";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, ReducerContext } from "./context";
