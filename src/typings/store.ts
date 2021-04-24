@@ -3,6 +3,7 @@ import React from "react";
 export interface IProviderProps {
   children: React.ReactNode;
   initialState: TState;
+  Context?: React.Context<any>;
 }
 
 export interface IProviderReducerProps extends IProviderProps {
