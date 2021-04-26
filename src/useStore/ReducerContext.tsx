@@ -12,6 +12,19 @@ import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, ReducerContext } from "./context";
 
 /**
+ * A function that returns action object
+ * @example
+ * const setTheme = payload => createAction("SET_THEME", payload);
+ * @param {string} type - action type
+ * @param {any} payload - ayn optional payload that action nneds.
+ * @return {object} { type: string, payload: any }
+ */
+export const createAction: TCreateAction = (type: string, payload?: any) => ({
+  type,
+  payload
+});
+
+/**
  * @typedef {object} ReturnObject
  * @property {object} state - State object
  * @property {function} stateSelector - state in a form of a selector
@@ -38,17 +51,11 @@ import { initialContextState, ReducerContext } from "./context";
  * state {object} - State object,
  * stateSelector {function} - state in a form of a selector,
  * dispatch {function} - dispatch function from react,
- * createAction {function} - accepts type and payload and return action object,
  * dispatchOnChange {function} - checks the store with provided key if changed, it dispaches the action
  * }
  */
 export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
   const { state, dispatch } = useContext(Context);
-
-  const createAction: TCreateAction = (type: string, payload: any) => ({
-    type,
-    payload
-  });
 
   const dispatchOnChange: TDispatchOnChange = (key, action) => {
     if (stateKeyChanged(state, key, action.payload)) {
@@ -60,7 +67,6 @@ export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
     state,
     stateSelector: generateSelector(state),
     dispatch,
-    createAction,
     dispatchOnChange
   };
 };
