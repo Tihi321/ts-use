@@ -3,7 +3,8 @@ import React, { useContext, useMemo, useReducer } from "react";
 import {
   IReducerProvider,
   TCreateAction,
-  TDispatchOnChange,
+  TKeyValueChanged,
+  TOnStateKeyChange,
   TReducerProviderHOC,
   TReducerUseStore,
   TSelector
@@ -16,10 +17,10 @@ import { initialContextState, ReducerContext } from "./context";
  * @example
  * const setTheme = payload => createAction("SET_THEME", payload);
  * @param {string} type - action type
- * @param {any} payload - ayn optional payload that action nneds.
+ * @param {any} payload - optional payload that action needs.
  * @return {object} { type: string, payload: any }
  */
-export const createAction: TCreateAction = (type: string, payload?: any) => ({
+export const createAction: TCreateAction = (type, payload) => ({
   type,
   payload
 });
@@ -29,16 +30,20 @@ export const createAction: TCreateAction = (type: string, payload?: any) => ({
  * @property {object} state - State object
  * @property {function} stateSelector - state in a form of a selector
  * @property {function} dispatch - Dispatch function from react
- * @property {function} createAction - accepts type and payload and return action object
- * @property {function} dispatchOnChange - checks the store with provided key if changed, it dispaches the action
+ * @property {function} stateKeyValueChanged -  takes a key and values and checks if value updated with that key in state and returns boolean
+ * @property {function} onStateKeyChange - receives the callback, checks the store with provided key if state object value is updated and runs provided callback with newUpdatedState
  */
 
 /**
  * A store hook that works with ReducerProvider,  if used with getHooks this needs to be in top package under withReducerProvider component
  * @example
- * const { dispatchOnChange } = useReducerStore();
+ * const { dispatch, stateKeyValueChanged, onStateKeyChange } = useStateStore();
  * const { data: quotes } = useGetData("quotesApi");
- * dispatchOnChange("quotes", quotes);
+ * const stateChanged = stateKeyValueChanged("quotes", quotes);
+ * onStateKeyChange("quotes", quotes, () => dispatch(setQuotes(quotes)));
+ * if (stateChanged) {
+ *  // ... some code
+ * }
  * @example
  * const { stateSelector } = useReducerStore();
  *
@@ -51,15 +56,19 @@ export const createAction: TCreateAction = (type: string, payload?: any) => ({
  * state {object} - State object,
  * stateSelector {function} - state in a form of a selector,
  * dispatch {function} - dispatch function from react,
- * dispatchOnChange {function} - checks the store with provided key if changed, it dispaches the action
+ * stateKeyValueChanged {function} - takes a key and values and checks if value updated with that key in state and returns boolean,
+ * onStateKeyChange {function} - receives the callback, checks the store with provided key if state object value is updated and runs provided callback
  * }
  */
 export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
   const { state, dispatch } = useContext(Context);
 
-  const dispatchOnChange: TDispatchOnChange = (key, action) => {
-    if (stateKeyChanged(state, key, action.payload)) {
-      dispatch(action);
+  const stateKeyValueChanged: TKeyValueChanged = (key, value) =>
+    stateKeyChanged(state, key, value);
+
+  const onStateKeyChange: TOnStateKeyChange = (key, value, callback) => {
+    if (stateKeyValueChanged(key, value)) {
+      callback();
     }
   };
 
@@ -67,7 +76,8 @@ export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
     state,
     stateSelector: generateSelector(state),
     dispatch,
-    dispatchOnChange
+    stateKeyValueChanged,
+    onStateKeyChange
   };
 };
 

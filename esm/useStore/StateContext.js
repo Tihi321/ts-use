@@ -13,28 +13,75 @@ import { isEqual } from "lodash";
 import React, { useContext, useMemo, useState } from "react";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, StateContext } from "./context";
+/**
+ * @typedef {object} ReturnObject
+ * @property {object} state - State object
+ * @property {function} stateSelector - state in a form of a selector
+ * @property {function} setState -  setState function from react
+ * @property {function} stateKeyValueChanged -  takes a key and values and checks if value updated with that key in state and returns boolean
+ * @property {function} onStateChange - receives the callback and newState, checks if newState is same as old and runs callback with newUpdatedState, with these function state is reactive to state from api
+ * @property {function} onStateKeyChange - receives the callback, checks the store with provided key if state object value is updated and runs provided callback with newUpdatedState
+ */
+/**
+ * A store hook that works with StateProvider, if used with getHooks this needs to be in top package under withStateProvider component, you can check status panel package useContextState hook for more details
+ * @example
+ * const { setState, stateKeyValueChanged, onStateKeyChange } = useStateStore();
+ * const { data: quotes } = useGetData("quotesApi");
+ * const stateChanged = stateKeyValueChanged("quotes", quotes);
+ * onStateKeyChange("quotes", quotes, newState => setState(newState));
+ * useEffect(() => {
+ * // some code
+ * }, [stateChanged]);
+ * @example
+ * const { stateSelector } = useStateStore();
+ *
+ * // useSelector from redux, used with createSelector
+ * const data = useSelector(getDataWith(stateSelector));
+ * @example
+ * const { dispatch } = useReducerStore();
+ * onClick{() => dispatch(switchTheme()}
+ * @return {ReturnObject} {
+ * state {object} - State object,
+ * stateSelector {function} - state in a form of a selector,
+ * setState {function} - setState function from react,
+ * stateKeyValueChanged {function} - takes a key and values and checks if value updated with that key in state and returns boolean,
+ * onStateChange {function} - receives the callback and newState, checks if newState is same as old and runs callback with newUpdatedState, with these function state is reactive to state from api
+ * onStateKeyChange {function} - receives the callback, checks the store with provided key if state object value is updated and runs provided callback with newUpdatedState
+ * }
+ */
 export var useStateStore = function (Context) {
     if (Context === void 0) { Context = StateContext; }
     var _a = useContext(Context), state = _a.state, setState = _a.setState;
-    var setStateOnChange = function (newState) {
+    var onStateChange = function (newState, callback) {
         if (!isEqual(state, newState)) {
-            setState(newState);
+            callback(newState);
         }
     };
-    var setStateKeyOnChange = function (key, value) {
+    var stateKeyValueChanged = function (key, value) {
+        return stateKeyChanged(state, key, value);
+    };
+    var onStateKeyChange = function (key, value, callback) {
         var _a;
-        if (stateKeyChanged(state, key, value)) {
-            setState(__assign(__assign({}, state), (_a = {}, _a[key] = value, _a)));
+        if (stateKeyValueChanged(key, value)) {
+            callback(__assign(__assign({}, state), (_a = {}, _a[key] = value, _a)));
         }
     };
     return {
         state: state,
         stateSelector: generateSelector(state),
         setState: setState,
-        setStateOnChange: setStateOnChange,
-        setStateKeyOnChange: setStateKeyOnChange
+        onStateChange: onStateChange,
+        stateKeyValueChanged: stateKeyValueChanged,
+        onStateKeyChange: onStateKeyChange
     };
 };
+/**
+ * Helper hook that works with useStateStore, it accepts selector and return value from store
+ * @example
+ * const data = useStateSelector(getVideoIOInputs);
+ * @param {function} selector - selector funtion that accepts state
+ * @return {any} returns value from the store
+ */
 export function useStateSelector(selector) {
     var state = useStateStore().state;
     return selector(state);
@@ -46,6 +93,13 @@ export var StateProvider = function (_a) {
     var contextValue = useMemo(function () { return ({ state: state, setState: setState }); }, [state, setState]);
     return (React.createElement(Context.Provider, { value: { state: contextValue.state, setState: contextValue.setState } }, children));
 };
+/**
+ * Represents a hoc component for StateProvider to wrap passed component
+ * @example
+ * export default withStateProvider(statusPanelnitialState)(StatusPanel);
+ * @param {object} initialState - initial state for local store.
+ * @return {function} returns function that expects top component, for example top panel component, to be srapped, it will provide state and setState to bottom component that complimentary hooks can use internaly.
+ */
 export var withStateProvider = function (initialState, Context
 // eslint-disable-next-line react/display-name
 ) {
