@@ -16,9 +16,9 @@ import { IStateProvider, TSelector, TStateProviderHOC, TStateUseStore } from "..
  * const { data: quotes } = useGetData("quotesApi");
  * const stateChanged = stateKeyValueChanged("quotes", quotes);
  * onStateKeyChange("quotes", quotes, newState => setState(newState));
- * useEffect(() => {
- * // some code
- * }, [stateChanged]);
+ * if (stateChanged) {
+ *  // ... some code
+ * }
  * @example
  * const { stateSelector } = useStateStore();
  *

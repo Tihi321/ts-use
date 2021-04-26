@@ -24,9 +24,9 @@ export declare const createAction: TCreateAction;
  * const { data: quotes } = useGetData("quotesApi");
  * const stateChanged = stateKeyValueChanged("quotes", quotes);
  * onStateKeyChange("quotes", quotes, () => dispatch(setQuotes(quotes)));
- * useEffect(() => {
- * // some code
- * }, [stateChanged]);
+ * if (stateChanged) {
+ *  // ... some code
+ * }
  * @example
  * const { stateSelector } = useReducerStore();
  *

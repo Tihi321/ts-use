@@ -29,9 +29,9 @@ import { initialContextState, StateContext } from "./context";
  * const { data: quotes } = useGetData("quotesApi");
  * const stateChanged = stateKeyValueChanged("quotes", quotes);
  * onStateKeyChange("quotes", quotes, newState => setState(newState));
- * useEffect(() => {
- * // some code
- * }, [stateChanged]);
+ * if (stateChanged) {
+ *  // ... some code
+ * }
  * @example
  * const { stateSelector } = useStateStore();
  *
