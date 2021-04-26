@@ -11,6 +11,37 @@ import {
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, ReducerContext } from "./context";
 
+/**
+ * @typedef {object} ReturnObject
+ * @property {object} state - State object
+ * @property {function} stateSelector - state in a form of a selector
+ * @property {function} dispatch - Dispatch function from react
+ * @property {function} createAction - accepts type and payload and return action object
+ * @property {function} dispatchOnChange - checks the store with provided key if changed, it dispaches the action
+ */
+
+/**
+ * A store hook that works with ReducerProvider,  if used with getHooks this needs to be in top package under withReducerProvider component
+ * @example
+ * const { dispatchOnChange } = useReducerStore();
+ * const { data: quotes } = useGetData("quotesApi");
+ * dispatchOnChange("quotes", quotes);
+ * @example
+ * const { stateSelector } = useReducerStore();
+ *
+ * // useSelector from redux, used with createSelector
+ * const data = useSelector(getDataWith(stateSelector));
+ * @example
+ * const { dispatch } = useReducerStore();
+ * onClick{() => dispatch(switchTheme()}
+ * @return {ReturnObject} {
+ * state {object} - State object,
+ * stateSelector {function} - state in a form of a selector,
+ * dispatch {function} - dispatch function from react,
+ * createAction {function} - accepts type and payload and return action object,
+ * dispatchOnChange {function} - checks the store with provided key if changed, it dispaches the action
+ * }
+ */
 export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
   const { state, dispatch } = useContext(Context);
 
@@ -34,6 +65,13 @@ export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
   };
 };
 
+/**
+ * Helper hook that works with useReducerStore, it accepts selector and return value from store
+ * @example
+ * const theme = useReducerSelector(getTheme);
+ * @param {function} selector - selector funtion that accepts state
+ * @return {any} returns value from the store
+ */
 export function useReducerSelector<T extends TSelector>(
   selector: T
 ): ReturnType<T> {
@@ -62,6 +100,14 @@ export const ReducerProvider = ({
   );
 };
 
+/**
+ * Represents a hoc component for ReducerProvider to wrap passed component
+ * @example
+ * export default withReducerProvider(statusPanelReducer, statusPanelnitialState)(StatusPanel);
+ * @param {function} reducer - reducer to work with state
+ * @param {object} initialState - initial state for local store.
+ * @return {function} returns function that expects top component, for example top panel component, to be srapped, it will provide state and dispatch to bottom component that complimentary hooks can use internaly.
+ */
 export const withReducerProvider: TReducerProviderHOC = (
   reducer,
   initialState = initialContextState,
