@@ -28,7 +28,6 @@ export type TReducerUseStore<S = TState> = (
   state: S;
   stateSelector: TSelector<S>;
   dispatch: any;
-  createAction: TCreateAction;
   dispatchOnChange: TDispatchOnChange;
 };
 
