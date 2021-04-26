@@ -12,26 +12,78 @@ var __assign = (this && this.__assign) || function () {
 import React, { useContext, useMemo, useReducer } from "react";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, ReducerContext } from "./context";
+/**
+ * A function that returns action object
+ * @example
+ * const setTheme = payload => createAction("SET_THEME", payload);
+ * @param {string} type - action type
+ * @param {any} payload - optional payload that action needs.
+ * @return {object} { type: string, payload: any }
+ */
+export var createAction = function (type, payload) { return ({
+    type: type,
+    payload: payload
+}); };
+/**
+ * @typedef {object} ReturnObject
+ * @property {object} state - State object
+ * @property {function} stateSelector - state in a form of a selector
+ * @property {function} dispatch - Dispatch function from react
+ * @property {function} stateKeyValueChanged -  takes a key and values and checks if value updated with that key in state and returns boolean
+ * @property {function} onStateKeyChange - receives the callback, checks the store with provided key if state object value is updated and runs provided callback with newUpdatedState
+ */
+/**
+ * A store hook that works with ReducerProvider,  if used with getHooks this needs to be in top package under withReducerProvider component
+ * @example
+ * const { dispatch, stateKeyValueChanged, onStateKeyChange } = useStateStore();
+ * const { data: quotes } = useGetData("quotesApi");
+ * const stateChanged = stateKeyValueChanged("quotes", quotes);
+ * onStateKeyChange("quotes", quotes, () => dispatch(setQuotes(quotes)));
+ * useEffect(() => {
+ * // some code
+ * }, [stateChanged]);
+ * @example
+ * const { stateSelector } = useReducerStore();
+ *
+ * // useSelector from redux, used with createSelector
+ * const data = useSelector(getDataWith(stateSelector));
+ * @example
+ * const { dispatch } = useReducerStore();
+ * onClick{() => dispatch(switchTheme()}
+ * @return {ReturnObject} {
+ * state {object} - State object,
+ * stateSelector {function} - state in a form of a selector,
+ * dispatch {function} - dispatch function from react,
+ * stateKeyValueChanged {function} - takes a key and values and checks if value updated with that key in state and returns boolean,
+ * onStateKeyChange {function} - receives the callback, checks the store with provided key if state object value is updated and runs provided callback
+ * }
+ */
 export var useReducerStore = function (Context) {
     if (Context === void 0) { Context = ReducerContext; }
     var _a = useContext(Context), state = _a.state, dispatch = _a.dispatch;
-    var createAction = function (type, payload) { return ({
-        type: type,
-        payload: payload
-    }); };
-    var dispatchOnChange = function (key, action) {
-        if (stateKeyChanged(state, key, action.payload)) {
-            dispatch(action);
+    var stateKeyValueChanged = function (key, value) {
+        return stateKeyChanged(state, key, value);
+    };
+    var onStateKeyChange = function (key, value, callback) {
+        if (stateKeyValueChanged(key, value)) {
+            callback();
         }
     };
     return {
         state: state,
         stateSelector: generateSelector(state),
         dispatch: dispatch,
-        createAction: createAction,
-        dispatchOnChange: dispatchOnChange
+        stateKeyValueChanged: stateKeyValueChanged,
+        onStateKeyChange: onStateKeyChange
     };
 };
+/**
+ * Helper hook that works with useReducerStore, it accepts selector and return value from store
+ * @example
+ * const theme = useReducerSelector(getTheme);
+ * @param {function} selector - selector funtion that accepts state
+ * @return {any} returns value from the store
+ */
 export function useReducerSelector(selector) {
     var state = useReducerStore().state;
     return selector(state);
@@ -43,6 +95,14 @@ export var ReducerProvider = function (_a) {
     var contextValue = useMemo(function () { return ({ state: state, dispatch: dispatch }); }, [state, dispatch]);
     return (React.createElement(Context.Provider, { value: { state: contextValue.state, dispatch: contextValue.dispatch } }, children));
 };
+/**
+ * Represents a hoc component for ReducerProvider to wrap passed component
+ * @example
+ * export default withReducerProvider(statusPanelReducer, statusPanelnitialState)(StatusPanel);
+ * @param {function} reducer - reducer to work with state
+ * @param {object} initialState - initial state for local store.
+ * @return {function} returns function that expects top component, for example top panel component, to be srapped, it will provide state and dispatch to bottom component that complimentary hooks can use internaly.
+ */
 export var withReducerProvider = function (reducer, initialState, Context
 // eslint-disable-next-line react/display-name
 ) {

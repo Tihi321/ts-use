@@ -1,10 +1,4 @@
 import { ETheme } from "../enums";
-import { EActionTypes } from "./types";
-export declare const setTheme: (theme: ETheme) => {
-    type: EActionTypes;
-    payload: ETheme;
-};
-export declare const switchTheme: () => {
-    type: EActionTypes;
-};
+export declare const setTheme: (theme: ETheme) => import("../../../..").TAction<any>;
+export declare const switchTheme: () => import("../../../..").TAction<any>;
 //# sourceMappingURL=actions.d.ts.map

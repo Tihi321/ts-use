@@ -1,11 +1,8 @@
+import { createAction } from "../../../../useStore";
 import { ETheme } from "../enums";
 import { EActionTypes } from "./types";
 
-export const setTheme = (theme: ETheme) => ({
-  type: EActionTypes.ThemeSet,
-  payload: theme
-});
+export const setTheme = (theme: ETheme) =>
+  createAction(EActionTypes.ThemeSet, theme);
 
-export const switchTheme = () => ({
-  type: EActionTypes.ThemeSwitch
-});
+export const switchTheme = () => createAction(EActionTypes.ThemeSwitch);

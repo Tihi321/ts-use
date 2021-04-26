@@ -1,6 +1,13 @@
 import React from "react";
 
-import { IProviderProps, TSelector, TState, TValue } from "./shared";
+import {
+  IProviderProps,
+  TKeyValueChanged,
+  TOnStateKeyChange,
+  TSelector,
+  TState,
+  TValue
+} from "./shared";
 
 export type TContextReducer<S = TState> = React.Context<{
   state: S;
@@ -14,13 +21,8 @@ export type TAction<V = TValue> = {
 
 export type TCreateAction<V = TValue> = (
   type: string,
-  payload: V
+  payload?: V
 ) => TAction<V>;
-
-export type TDispatchOnChange<V = TValue> = (
-  key: string,
-  action: TAction<V>
-) => void;
 
 export type TReducerUseStore<S = TState> = (
   Context?: TContextReducer<S>
@@ -28,7 +30,8 @@ export type TReducerUseStore<S = TState> = (
   state: S;
   stateSelector: TSelector<S>;
   dispatch: any;
-  dispatchOnChange: TDispatchOnChange;
+  stateKeyValueChanged: TKeyValueChanged;
+  onStateKeyChange: TOnStateKeyChange;
 };
 
 export interface IReducerProvider<S = TState> extends IProviderProps<S> {

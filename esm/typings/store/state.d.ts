@@ -1,17 +1,17 @@
 import React from "react";
-import { IProviderProps, TSelector, TState, TValue } from "./shared";
+import { IProviderProps, TKeyValueChanged, TOnStateKeyChange, TSelector, TState, TValue } from "./shared";
 export declare type TContextState<S = TState> = React.Context<{
     state: S;
     setState: any;
 }>;
-export declare type TSetStateOnChange<S = TState> = (state: S) => void;
-export declare type TSetStateKeyOnChange<V = TValue> = (key: string, value: V) => void;
+export declare type TOnStateChange<S = TState> = (state: S, callback: Function) => void;
 export declare type TStateUseStore<S = TState, V = TValue> = (Context?: TContextState<S>) => {
     state: S;
     stateSelector: TSelector<S>;
     setState: React.Dispatch<React.SetStateAction<S>>;
-    setStateOnChange: TSetStateOnChange<S>;
-    setStateKeyOnChange: TSetStateKeyOnChange<V>;
+    stateKeyValueChanged: TKeyValueChanged;
+    onStateChange: TOnStateChange<S>;
+    onStateKeyChange: TOnStateKeyChange<V>;
 };
 export interface IStateProvider<S = TState> extends IProviderProps<S> {
     Context?: TContextState<S>;

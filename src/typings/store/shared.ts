@@ -9,3 +9,11 @@ export interface IProviderProps<S = TState> {
 }
 
 export type TSelector<S = TState, V = TValue> = (state: S) => V;
+
+export type TKeyValueChanged = (key: string, value: any) => boolean;
+
+export type TOnStateKeyChange<V = TValue> = (
+  key: string,
+  value: V,
+  callback: Function
+) => void;

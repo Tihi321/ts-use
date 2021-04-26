@@ -19,7 +19,7 @@
 - **State**
   - `ReducerProvider` &mdash; Provider to wrap outer components, takes reducer and initial state.
   - [`withReducerProvider`](./src/example/useStore/index.tsx) &mdash; HOC for ReducerProvider Provider to top component.
-  - [`useReducerStore`](./src/example/useStore/index.tsx) &mdash; returns state, selector and functions for for updating the state form context 
+  - [`useReducerStore`](./src/example/useStore/index.tsx) &mdash; returns state, selector and functions for for updating the state from context 
   - [`useReducerSelector`](./src/example/useStore/index.tsx) &mdash; takes selector and returns value
   similar hooks for providing simple state without using reducer
   `StateProvider`, `withStateProvider`, `useStateStore`, `useStateSelector`

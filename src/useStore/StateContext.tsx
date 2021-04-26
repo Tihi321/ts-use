@@ -3,9 +3,10 @@ import React, { useContext, useMemo, useState } from "react";
 
 import {
   IStateProvider,
+  TKeyValueChanged,
+  TOnStateChange,
+  TOnStateKeyChange,
   TSelector,
-  TSetStateKeyOnChange,
-  TSetStateOnChange,
   TStateProviderHOC,
   TStateUseStore
 } from "../typings";
@@ -17,16 +18,21 @@ import { initialContextState, StateContext } from "./context";
  * @property {object} state - State object
  * @property {function} stateSelector - state in a form of a selector
  * @property {function} setState -  setState function from react
- * @property {function} setStateOnChange - check first if state object changed before udapting setState
- * @property {function} setStateKeyOnChange - checks the store with šrovided key if changed then it updates that key, limitation is that you cannot provide the functions as function never change in initial state, example you cannot provide selector in intial state, but you can use any other value as long as it is changed from the value you pass later on
+ * @property {function} stateKeyValueChanged -  takes a key and values and checks if value updated with that key in state and returns boolean
+ * @property {function} onStateChange - receives the callback and newState, checks if newState is same as old and runs callback with newUpdatedState, with these function state is reactive to state from api
+ * @property {function} onStateKeyChange - receives the callback, checks the store with provided key if state object value is updated and runs provided callback with newUpdatedState
  */
 
 /**
  * A store hook that works with StateProvider, if used with getHooks this needs to be in top package under withStateProvider component, you can check status panel package useContextState hook for more details
  * @example
- * const { setStateKeyOnChange } = useStateStore();
+ * const { setState, stateKeyValueChanged, onStateKeyChange } = useStateStore();
  * const { data: quotes } = useGetData("quotesApi");
- * setStateKeyOnChange("quotes", quotes);
+ * const stateChanged = stateKeyValueChanged("quotes", quotes);
+ * onStateKeyChange("quotes", quotes, newState => setState(newState));
+ * if (stateChanged) {
+ *  // ... some code
+ * }
  * @example
  * const { stateSelector } = useStateStore();
  *
@@ -39,22 +45,26 @@ import { initialContextState, StateContext } from "./context";
  * state {object} - State object,
  * stateSelector {function} - state in a form of a selector,
  * setState {function} - setState function from react,
- * setStateOnChange {function} - check first if state object changed before udapting setState,
- * setStateKeyOnChange {function} - checks the store with šrovided key if changed then it updates that key, limitation is that you cannot provide the functions as function never change in initial state, example you cannot provide selector in intial state, but you can use any other value as long as it is changed from the value you pass later on
+ * stateKeyValueChanged {function} - takes a key and values and checks if value updated with that key in state and returns boolean,
+ * onStateChange {function} - receives the callback and newState, checks if newState is same as old and runs callback with newUpdatedState, with these function state is reactive to state from api
+ * onStateKeyChange {function} - receives the callback, checks the store with provided key if state object value is updated and runs provided callback with newUpdatedState
  * }
  */
 export const useStateStore: TStateUseStore = (Context = StateContext) => {
   const { state, setState } = useContext(Context);
 
-  const setStateOnChange: TSetStateOnChange = newState => {
+  const onStateChange: TOnStateChange = (newState, callback) => {
     if (!isEqual(state, newState)) {
-      setState(newState);
+      callback(newState);
     }
   };
 
-  const setStateKeyOnChange: TSetStateKeyOnChange = (key, value) => {
-    if (stateKeyChanged(state, key, value)) {
-      setState({ ...state, [key]: value });
+  const stateKeyValueChanged: TKeyValueChanged = (key, value) =>
+    stateKeyChanged(state, key, value);
+
+  const onStateKeyChange: TOnStateKeyChange = (key, value, callback) => {
+    if (stateKeyValueChanged(key, value)) {
+      callback({ ...state, [key]: value });
     }
   };
 
@@ -62,8 +72,9 @@ export const useStateStore: TStateUseStore = (Context = StateContext) => {
     state,
     stateSelector: generateSelector(state),
     setState,
-    setStateOnChange,
-    setStateKeyOnChange
+    onStateChange,
+    stateKeyValueChanged,
+    onStateKeyChange
   };
 };
 
