@@ -8,6 +8,7 @@ import { IStateProvider, TSelector, TStateProviderHOC, TStateUseStore } from "..
  * @property {function} stateKeyValueChanged -  takes a key and values and checks if value updated with that key in state and returns boolean
  * @property {function} onStateChange - receives the callback and newState, checks if newState is same as old and runs callback with newUpdatedState, with these function state is reactive to state from api
  * @property {function} onStateKeyChange - receives the callback, checks the store with provided key if state object value is updated and runs provided callback with newUpdatedState
+ * @property {function} onStateObjectChange - receives the object state or part of the state and callback, checks if state updated then it call the callback with new state
  */
 /**
  * A store hook that works with StateProvider, if used with getHooks this needs to be in top package under withStateProvider component, you can check status panel package useContextState hook for more details
@@ -19,6 +20,15 @@ import { IStateProvider, TSelector, TStateProviderHOC, TStateUseStore } from "..
  * if (stateChanged) {
  *  // ... some code
  * }
+ * @example
+ * const { setState, onStateObjectChange } = useStateStore();
+ *  onStateObjectChange(
+ *  {
+ *    theme: themeData,
+ *    quotes: quotesData,
+ *  },
+ *  newState => setState(newState)
+ * )
  * @example
  * const { stateSelector } = useStateStore();
  *
@@ -34,6 +44,7 @@ import { IStateProvider, TSelector, TStateProviderHOC, TStateUseStore } from "..
  * stateKeyValueChanged {function} - takes a key and values and checks if value updated with that key in state and returns boolean,
  * onStateChange {function} - receives the callback and newState, checks if newState is same as old and runs callback with newUpdatedState, with these function state is reactive to state from api
  * onStateKeyChange {function} - receives the callback, checks the store with provided key if state object value is updated and runs provided callback with newUpdatedState
+ * onStateObjectChange {function} - receives the object state or part of the state and callback, checks if state updated then it call the callback with new state
  * }
  */
 export declare const useStateStore: TStateUseStore;

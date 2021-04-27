@@ -4,6 +4,7 @@ import {
   IProviderProps,
   TKeyValueChanged,
   TOnStateKeyChange,
+  TOnStateKeysChange,
   TSelector,
   TState,
   TValue
@@ -25,6 +26,7 @@ export type TStateUseStore<S = TState, V = TValue> = (
   stateKeyValueChanged: TKeyValueChanged;
   onStateChange: TOnStateChange<S>;
   onStateKeyChange: TOnStateKeyChange<V>;
+  onStateObjectChange: TOnStateKeysChange;
 };
 
 export interface IStateProvider<S = TState> extends IProviderProps<S> {
