@@ -1,5 +1,5 @@
 import React from "react";
-import { IProviderProps, TKeyValueChanged, TOnStateKeyChange, TSelector, TState, TValue } from "./shared";
+import { IProviderProps, TKeyValueChanged, TOnStateKeyChange, TOnStateKeysChange, TSelector, TState, TValue } from "./shared";
 export declare type TContextState<S = TState> = React.Context<{
     state: S;
     setState: any;
@@ -12,6 +12,7 @@ export declare type TStateUseStore<S = TState, V = TValue> = (Context?: TContext
     stateKeyValueChanged: TKeyValueChanged;
     onStateChange: TOnStateChange<S>;
     onStateKeyChange: TOnStateKeyChange<V>;
+    onStateObjectChange: TOnStateKeysChange;
 };
 export interface IStateProvider<S = TState> extends IProviderProps<S> {
     Context?: TContextState<S>;

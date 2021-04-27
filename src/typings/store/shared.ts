@@ -17,3 +17,8 @@ export type TOnStateKeyChange<V = TValue> = (
   value: V,
   callback: Function
 ) => void;
+
+export type TOnStateKeysChange = (
+  keyValues: Record<string, any>,
+  callback: Function
+) => void;
