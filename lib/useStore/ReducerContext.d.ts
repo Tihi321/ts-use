@@ -55,8 +55,20 @@ export declare function useReducerSelector<T extends TSelector>(selector: T): Re
 export declare const ReducerProvider: ({ children, reducer, initialState, Context }: IReducerProvider) => JSX.Element;
 /**
  * Represents a hoc component for ReducerProvider to wrap passed component
+ * !Important do not use useState hooks in this provider component
  * @example
- * export default withReducerProvider(statusPanelReducer, statusPanelnitialState)(StatusPanel);
+ * const StatusPanel = () => {
+ *
+ *  // in component
+ *  const { setStateKeyOnChange } = useReducerStore();
+ *
+ *  // custom hook
+ *  useContextReducerProvider();
+ *
+ *  return <StatusPanelContainer />;
+ * };
+ *
+ * export default withStateProvider(statusPanelnitialState)(StatusPanel);
  * @param {function} reducer - reducer to work with state
  * @param {object} initialState - initial state for local store.
  * @return {function} returns function that expects top component, for example top panel component, to be srapped, it will provide state and dispatch to bottom component that complimentary hooks can use internaly.

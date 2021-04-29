@@ -59,7 +59,19 @@ export declare function useStateSelector<T extends TSelector>(selector: T): Retu
 export declare const StateProvider: ({ children, initialState, Context }: IStateProvider) => JSX.Element;
 /**
  * Represents a hoc component for StateProvider to wrap passed component
+ * !Important do not use useState hooks in this provider component
  * @example
+ * const StatusPanel = () => {
+ *
+ *  // in component
+ *  const { setStateKeyOnChange } = useStateStore();
+ *
+ *  // custom hook
+ *  useContextStateProvider();
+ *
+ *  return <StatusPanelContainer />;
+ * };
+ *
  * export default withStateProvider(statusPanelnitialState)(StatusPanel);
  * @param {object} initialState - initial state for local store.
  * @return {function} returns function that expects top component, for example top panel component, to be srapped, it will provide state and setState to bottom component that complimentary hooks can use internaly.
