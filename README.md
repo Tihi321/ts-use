@@ -23,3 +23,7 @@
   - [`useReducerSelector`](./src/example/useStore/index.tsx) &mdash; takes selector and returns value
   similar hooks for providing simple state without using reducer
   `StateProvider`, `withStateProvider`, `useStateStore`, `useStateSelector`
+  - [`useReactiveState`](./src/example/useState/index.ts) &mdash; reactive state that updates with change in initial state
+
+  - **Animation**
+  - [`useAnimation`](./src/example/useAnimation/index.tsx) &mdash; use with animations, it tracks and start and exit animation so component can unmount after it exit animation has finished
