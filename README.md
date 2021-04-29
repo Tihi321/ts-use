@@ -11,6 +11,12 @@
   <br />
 </div>
 
+
+- **Animation**
+  - [`useAnimation`](./src/example/useAnimation/index.tsx) &mdash; use with animations, it tracks and start and exit animation so component can unmount after exit animation has ended
+<br/>
+<br/>
+
 - **Side-effects**
   - [`useLocalStorage`](./src/example/localStorage/index.tsx) &mdash; hook for managing local storage. Supports SSR rendering.
 <br/>
@@ -24,6 +30,5 @@
   similar hooks for providing simple state without using reducer
   `StateProvider`, `withStateProvider`, `useStateStore`, `useStateSelector`
   - [`useReactiveState`](./src/example/useState/index.ts) &mdash; reactive state that updates with change in initial state
-
-  - **Animation**
-  - [`useAnimation`](./src/example/useAnimation/index.tsx) &mdash; use with animations, it tracks and start and exit animation so component can unmount after it exit animation has finished
+<br/>
+<br/>
