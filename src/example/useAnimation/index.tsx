@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import { useAnimation } from "../../useAnimation";
+import { useAnimationEvents } from "../../useAnimation";
 
 export const BoardPanel = () => {
   const [startAnimation, setStartAnimation] = useState(false);
 
-  const { visible, onAnimationEnd } = useAnimation();
+  const { exited, onAnimationEnd } = useAnimationEvents();
 
   const onButtonClick = () => {
     setStartAnimation(false);
@@ -18,7 +18,7 @@ export const BoardPanel = () => {
       onAnimationEnd={onAnimationEnd}
       onClick={onButtonClick}
     >
-      {visible ? "Visible" : "Invisible"}
+      {exited ? "Visible" : "Invisible"}
     </button>
   );
 };
