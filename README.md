@@ -13,7 +13,7 @@
 
 
 - **Animation**
-  - [`useAnimation`](./src/example/useAnimation/index.tsx) &mdash; use with animations, it tracks and start and exit animation so component can unmount after exit animation has ended
+  - [`useAnimationEvents`](./src/example/useAnimation/index.tsx) &mdash; use with animations, it tracks and start and exit animation so component can unmount after exit animation has ended
 <br/>
 <br/>
 
