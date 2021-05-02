@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { isBrowser } from "../utils";
 export var useLocalStorage = function (key, initialState) {
     if (initialState === void 0) { initialState = null; }
     var _a = useState(initialState), data = _a[0], setData = _a[1];
-    var isWindow = typeof window !== "undefined";
+    var isWindow = isBrowser();
     var isLcalStorage = typeof localStorage !== "undefined";
     useEffect(function () {
         if (isWindow && isLcalStorage && localStorage.getItem(key) !== null) {
