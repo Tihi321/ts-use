@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
+import { isBrowser } from "../utils";
+
 export const useLocalStorage = (
   key: string,
   initialState: string | number | boolean | null = null
 ) => {
   const [data, setData] = useState(initialState);
 
-  const isWindow = typeof window !== "undefined";
+  const isWindow = isBrowser();
   const isLcalStorage = typeof localStorage !== "undefined";
 
   useEffect(() => {

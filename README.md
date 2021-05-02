@@ -32,3 +32,6 @@
   - [`useReactiveState`](./src/example/useState/index.ts) &mdash; reactive state that updates with change in initial state
 <br/>
 <br/>
+
+- **API**
+  - [`useYoutube`](./src/example/useYoutube/index.tsx) &mdash; hook to add youtube player logic to component based on [Youtube Player](youtube-player) library.
