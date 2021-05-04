@@ -4,5 +4,6 @@ export * from "./useAnimation";
 export * from "./useState";
 export * from "./useLocalStorage";
 export * from "./useStore";
+export * from "./useFetch";
 export * from "./useYoutube";
 //# sourceMappingURL=index.d.ts.map

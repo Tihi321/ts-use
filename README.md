@@ -33,5 +33,8 @@
 <br/>
 <br/>
 
+- **Network**
+  - [`useFetch`](./src/example/useFetch/index.tsx) &mdash; hook for using fetch in React, work on SSR also, as it checks to use node or window fetch
+
 - **API**
   - [`useYoutube`](./src/example/useYoutube/index.tsx) &mdash; hook to add youtube player logic to component based on [Youtube Player](youtube-player) library.
