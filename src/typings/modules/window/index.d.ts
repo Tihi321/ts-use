@@ -1,1 +1,1 @@
-declare const window: string;
+declare const window: any;
