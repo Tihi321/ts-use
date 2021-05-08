@@ -1,0 +1,1 @@
+{"version":3,"file":"useMount.d.ts","sourceRoot":"","sources":["../../src/useMount/useMount.ts"],"names":[],"mappings":"AAGA,aAAK,gBAAgB,GAAG;IACtB,OAAO,CAAC,EAAE,QAAQ,CAAC;IACnB,SAAS,CAAC,EAAE,CAAC,OAAO,EAAE,QAAQ,KAAK,IAAI,CAAC;CACzC,CAAC;AAEF,aAAK,SAAS,GAAG,gBAAgB,GAAG,QAAQ,CAAC;AAE7C;;;;;;;;;;;;;;;;;;;;;;;;GAwBG;AACH,eAAO,MAAM,QAAQ,YAAa,SAAS,8CAmD1C,CAAC"}

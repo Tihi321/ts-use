@@ -33,8 +33,15 @@
 <br/>
 <br/>
 
+- **Lifecycles**
+  - [`useMount`](./src/example/useMount/index.tsx) &mdash; hook returns state after first mount, takes optional callback to run, it can be resolved with promise
+<br/>
+<br/>
+
 - **Network**
   - [`useFetch`](./src/example/useFetch/index.tsx) &mdash; hook for using fetch in React, work on SSR also, as it checks to use node or window fetch
+<br/>
+<br/>
 
 - **API**
   - [`useYoutube`](./src/example/useYoutube/index.tsx) &mdash; hook to add youtube player logic to component based on [Youtube Player](youtube-player) library.
