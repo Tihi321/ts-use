@@ -18,7 +18,8 @@
 <br/>
 
 - **Side-effects**
-  - [`useLocalStorage`](./src/example/localStorage/index.tsx) &mdash; hook for managing local storage. Supports SSR rendering.
+  - [`useLocalStorage`](./src/example/localStorage/index.tsx) &mdash; hook for managing local storage. Safe with SSR rendering.
+  - [`useMutationObserver`](./src/example/useMutationObserver/index.tsx) &mdash; Use mutation Observer with this hook in react. Safe with SSR rendering.
 <br/>
 <br/>
 
