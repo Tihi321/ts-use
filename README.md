@@ -34,7 +34,7 @@
 <br/>
 
 - **Lifecycles**
-  - [`useMount`](./src/example/useMount/index.tsx) &mdash; hook returns state after first mount, takes optional callback to run, it can be resolved with promise
+  - [`useMount`](./src/example/useMount/index.ts) &mdash; hook returns state after first mount, takes optional callback to run, it can be resolved with promise
 <br/>
 <br/>
 
