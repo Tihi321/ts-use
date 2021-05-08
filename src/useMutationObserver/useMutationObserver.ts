@@ -50,7 +50,6 @@ type TUseMutationObserver = (
  *     observe(observerElement.current);
  *   }
  * }, []);
- * @param {React.MutableRefObject<HTMLElement>} elementRef - refference to htmlElement that will be observed
  * @param {Object} mutations - object with 2 optional callbacks that will be called eather when child or attribute mutations are triggered, they pass mutation object to callback function
  * @param {object} config (Optional) config object, on what should be observed. Keys are attributes , childList and subtree
  * @return {object} return observe function that accepts HTMLElement to observe, if SSR observe will return undefined. It returns isBrowser boolean for checking
