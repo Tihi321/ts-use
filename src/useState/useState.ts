@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
+import { isEqual } from "lodash";
 
 /**
  * Hook for reactive state, state that react to the changes from initialState
@@ -9,13 +10,13 @@ import { useEffect, useMemo, useState } from "react";
  */
 
 export const useReactiveState = (propState: any) => {
+  const [passedValue, setPassedValue] = useState(propState);
   const [state, setState] = useState(propState);
 
-  const propMemoState = useMemo(() => propState, [propState]);
-
-  useEffect(() => {
-    setState(propMemoState);
-  }, [propMemoState]);
+  if (!isEqual(passedValue, propState)) {
+    setPassedValue(propState);
+    setState(propState);
+  }
 
   return [state, setState];
 };
