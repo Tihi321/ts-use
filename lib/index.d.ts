@@ -3,6 +3,7 @@ export * from "./enums";
 export * from "./useAnimation";
 export * from "./useState";
 export * from "./useLocalStorage";
+export * from "./useAsyncStorage";
 export * from "./useStore";
 export * from "./useFetch";
 export * from "./useMount";
