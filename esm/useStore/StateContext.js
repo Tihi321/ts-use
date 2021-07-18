@@ -58,6 +58,7 @@ import { initialContextState, StateContext } from "./context";
  * onStateChange {function} - receives the callback and newState, checks if newState is same as old and runs callback with newUpdatedState, with these function state is reactive to state from api
  * onStateKeyChange {function} - receives the callback, checks the store with provided key if state object value is updated and runs provided callback with newUpdatedState
  * onStateObjectChange {function} - receives the object state or part of the state and callback, checks if state updated then it call the callback with new state
+ * useMemoizedValue - memoizes value from state, so it can be used as dependecy in useEffect, receives key for item in state
  * }
  */
 export var useStateStore = function (Context) {
@@ -89,6 +90,10 @@ export var useStateStore = function (Context) {
             callback(__assign(__assign({}, state), updatedState));
         }
     };
+    var useMemoizedValue = function (key) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        return useMemo(function () { return state[key]; }, [state[key]]);
+    };
     return {
         state: state,
         stateSelector: generateSelector(state),
@@ -96,7 +101,8 @@ export var useStateStore = function (Context) {
         onStateChange: onStateChange,
         stateKeyValueChanged: stateKeyValueChanged,
         onStateObjectChange: onStateObjectChange,
-        onStateKeyChange: onStateKeyChange
+        onStateKeyChange: onStateKeyChange,
+        useMemoizedValue: useMemoizedValue,
     };
 };
 /**
