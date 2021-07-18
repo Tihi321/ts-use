@@ -45,6 +45,7 @@ import { IStateProvider, TSelector, TStateProviderHOC, TStateUseStore } from "..
  * onStateChange {function} - receives the callback and newState, checks if newState is same as old and runs callback with newUpdatedState, with these function state is reactive to state from api
  * onStateKeyChange {function} - receives the callback, checks the store with provided key if state object value is updated and runs provided callback with newUpdatedState
  * onStateObjectChange {function} - receives the object state or part of the state and callback, checks if state updated then it call the callback with new state
+ * useMemoizedValue - memoizes value from state, so it can be used as dependecy in useEffect, receives key for item in state
  * }
  */
 export declare const useStateStore: TStateUseStore;
@@ -56,7 +57,7 @@ export declare const useStateStore: TStateUseStore;
  * @return {any} returns value from the store
  */
 export declare function useStateSelector<T extends TSelector>(selector: T): ReturnType<T>;
-export declare const StateProvider: ({ children, initialState, Context }: IStateProvider) => JSX.Element;
+export declare const StateProvider: ({ children, initialState, Context, }: IStateProvider) => JSX.Element;
 /**
  * Represents a hoc component for StateProvider to wrap passed component
  * !Important do not use useState hooks in this provider component
