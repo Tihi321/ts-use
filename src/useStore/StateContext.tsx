@@ -9,7 +9,7 @@ import {
   TOnStateKeysChange,
   TSelector,
   TStateProviderHOC,
-  TStateUseStore
+  TStateUseStore,
 } from "../typings";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, StateContext } from "./context";
@@ -60,6 +60,7 @@ import { initialContextState, StateContext } from "./context";
  * onStateChange {function} - receives the callback and newState, checks if newState is same as old and runs callback with newUpdatedState, with these function state is reactive to state from api
  * onStateKeyChange {function} - receives the callback, checks the store with provided key if state object value is updated and runs provided callback with newUpdatedState
  * onStateObjectChange {function} - receives the object state or part of the state and callback, checks if state updated then it call the callback with new state
+ * useMemoizedValue - memoizes value from state, so it can be used as dependecy in useEffect, receives key for item in state
  * }
  */
 export const useStateStore: TStateUseStore = (Context = StateContext) => {
@@ -82,7 +83,7 @@ export const useStateStore: TStateUseStore = (Context = StateContext) => {
 
   const onStateObjectChange: TOnStateKeysChange = (passedState, callback) => {
     let updatedState = { ...state };
-    Object.keys(passedState).forEach(key => {
+    Object.keys(passedState).forEach((key) => {
       if (!isEqual(state[key], passedState[key])) {
         updatedState = { ...state, [key]: passedState[key] };
       }
@@ -93,6 +94,10 @@ export const useStateStore: TStateUseStore = (Context = StateContext) => {
     }
   };
 
+  const useMemoizedValue = (key: string) =>
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useMemo(() => state[key], [state[key]]);
+
   return {
     state,
     stateSelector: generateSelector(state),
@@ -100,7 +105,8 @@ export const useStateStore: TStateUseStore = (Context = StateContext) => {
     onStateChange,
     stateKeyValueChanged,
     onStateObjectChange,
-    onStateKeyChange
+    onStateKeyChange,
+    useMemoizedValue,
   };
 };
 
@@ -122,7 +128,7 @@ export function useStateSelector<T extends TSelector>(
 export const StateProvider = ({
   children,
   initialState = initialContextState,
-  Context = StateContext
+  Context = StateContext,
 }: IStateProvider) => {
   const stateArray = useState(initialState);
 
