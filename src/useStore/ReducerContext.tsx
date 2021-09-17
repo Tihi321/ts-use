@@ -7,7 +7,7 @@ import {
   TOnStateKeyChange,
   TReducerProviderHOC,
   TReducerUseStore,
-  TSelector
+  TSelector,
 } from "../typings";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, ReducerContext } from "./context";
@@ -22,7 +22,7 @@ import { initialContextState, ReducerContext } from "./context";
  */
 export const createAction: TCreateAction = (type, payload) => ({
   type,
-  payload
+  payload,
 });
 
 /**
@@ -63,10 +63,9 @@ export const createAction: TCreateAction = (type, payload) => ({
 export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
   const { state, dispatch } = useContext(Context);
 
-  const stateKeyValueChanged: TKeyValueChanged = (key, value) =>
-    stateKeyChanged(state, key, value);
+  const stateKeyValueChanged: TKeyValueChanged = (key, value) => stateKeyChanged(state, key, value);
 
-  const onStateKeyChange: TOnStateKeyChange = (key, value, callback) => {
+  const onStateKeyChange: TOnStateKeyChange = (key, value, callback = dispatch) => {
     if (stateKeyValueChanged(key, value)) {
       callback();
     }
@@ -77,7 +76,7 @@ export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
     stateSelector: generateSelector(state),
     dispatch,
     stateKeyValueChanged,
-    onStateKeyChange
+    onStateKeyChange,
   };
 };
 
@@ -88,9 +87,7 @@ export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
  * @param {function} selector - selector funtion that accepts state
  * @return {any} returns value from the store
  */
-export function useReducerSelector<T extends TSelector>(
-  selector: T
-): ReturnType<T> {
+export function useReducerSelector<T extends TSelector>(selector: T): ReturnType<T> {
   const { state } = useReducerStore();
 
   return selector(state);
@@ -100,7 +97,7 @@ export const ReducerProvider = ({
   children,
   reducer,
   initialState = initialContextState,
-  Context = ReducerContext
+  Context = ReducerContext,
 }: IReducerProvider) => {
   const reducerArray = useReducer(reducer, initialState);
 
@@ -108,9 +105,7 @@ export const ReducerProvider = ({
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
 
   return (
-    <Context.Provider
-      value={{ state: contextValue.state, dispatch: contextValue.dispatch }}
-    >
+    <Context.Provider value={{ state: contextValue.state, dispatch: contextValue.dispatch }}>
       {children}
     </Context.Provider>
   );
@@ -141,12 +136,8 @@ export const withReducerProvider: TReducerProviderHOC = (
   initialState = initialContextState,
   Context = ReducerContext
   // eslint-disable-next-line react/display-name
-) => Component => (props: any) => (
-  <ReducerProvider
-    Context={Context}
-    reducer={reducer}
-    initialState={initialState}
-  >
+) => (Component) => (props: any) => (
+  <ReducerProvider Context={Context} reducer={reducer} initialState={initialState}>
     <Component {...props} />
   </ReducerProvider>
 );

@@ -15,7 +15,10 @@ export type TContextState<S = TState> = React.Context<{
   setState: any;
 }>;
 
-export type TOnStateChange<S = TState> = (state: S, callback: Function) => void;
+export type TOnStateChange<S = TState> = (
+  state: S,
+  callback?: Function
+) => void;
 
 export type TStateUseStore<S = TState, V = TValue> = (
   Context?: TContextState<S>

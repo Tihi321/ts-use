@@ -22,7 +22,7 @@ import { initialContextState, ReducerContext } from "./context";
  */
 export var createAction = function (type, payload) { return ({
     type: type,
-    payload: payload
+    payload: payload,
 }); };
 /**
  * @typedef {object} ReturnObject
@@ -61,10 +61,9 @@ export var createAction = function (type, payload) { return ({
 export var useReducerStore = function (Context) {
     if (Context === void 0) { Context = ReducerContext; }
     var _a = useContext(Context), state = _a.state, dispatch = _a.dispatch;
-    var stateKeyValueChanged = function (key, value) {
-        return stateKeyChanged(state, key, value);
-    };
+    var stateKeyValueChanged = function (key, value) { return stateKeyChanged(state, key, value); };
     var onStateKeyChange = function (key, value, callback) {
+        if (callback === void 0) { callback = dispatch; }
         if (stateKeyValueChanged(key, value)) {
             callback();
         }
@@ -74,7 +73,7 @@ export var useReducerStore = function (Context) {
         stateSelector: generateSelector(state),
         dispatch: dispatch,
         stateKeyValueChanged: stateKeyValueChanged,
-        onStateKeyChange: onStateKeyChange
+        onStateKeyChange: onStateKeyChange,
     };
 };
 /**

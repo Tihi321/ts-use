@@ -15,10 +15,10 @@ export type TKeyValueChanged = (key: string, value: any) => boolean;
 export type TOnStateKeyChange<V = TValue> = (
   key: string,
   value: V,
-  callback: Function
+  callback?: Function
 ) => void;
 
 export type TOnStateKeysChange = (
   keyValues: Record<string, any>,
-  callback: Function
+  callback?: Function
 ) => void;

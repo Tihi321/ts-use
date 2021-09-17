@@ -52,7 +52,7 @@ export declare const useReducerStore: TReducerUseStore;
  * @return {any} returns value from the store
  */
 export declare function useReducerSelector<T extends TSelector>(selector: T): ReturnType<T>;
-export declare const ReducerProvider: ({ children, reducer, initialState, Context }: IReducerProvider) => JSX.Element;
+export declare const ReducerProvider: ({ children, reducer, initialState, Context, }: IReducerProvider) => JSX.Element;
 /**
  * Represents a hoc component for ReducerProvider to wrap passed component
  * !Important do not use useState hooks in this provider component

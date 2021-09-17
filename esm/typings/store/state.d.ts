@@ -4,7 +4,7 @@ export declare type TContextState<S = TState> = React.Context<{
     state: S;
     setState: any;
 }>;
-export declare type TOnStateChange<S = TState> = (state: S, callback: Function) => void;
+export declare type TOnStateChange<S = TState> = (state: S, callback?: Function) => void;
 export declare type TStateUseStore<S = TState, V = TValue> = (Context?: TContextState<S>) => {
     state: S;
     stateSelector: TSelector<S>;
