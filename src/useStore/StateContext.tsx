@@ -66,22 +66,21 @@ import { initialContextState, StateContext } from "./context";
 export const useStateStore: TStateUseStore = (Context = StateContext) => {
   const { state, setState } = useContext(Context);
 
-  const onStateChange: TOnStateChange = (newState, callback) => {
+  const onStateChange: TOnStateChange = (newState, callback = setState) => {
     if (!isEqual(state, newState)) {
       callback(newState);
     }
   };
 
-  const stateKeyValueChanged: TKeyValueChanged = (key, value) =>
-    stateKeyChanged(state, key, value);
+  const stateKeyValueChanged: TKeyValueChanged = (key, value) => stateKeyChanged(state, key, value);
 
-  const onStateKeyChange: TOnStateKeyChange = (key, value, callback) => {
+  const onStateKeyChange: TOnStateKeyChange = (key, value, callback = setState) => {
     if (stateKeyValueChanged(key, value)) {
       callback({ ...state, [key]: value });
     }
   };
 
-  const onStateObjectChange: TOnStateKeysChange = (passedState, callback) => {
+  const onStateObjectChange: TOnStateKeysChange = (passedState, callback = setState) => {
     let updatedState = { ...state };
     Object.keys(passedState).forEach((key) => {
       if (!isEqual(state[key], passedState[key])) {
@@ -117,9 +116,7 @@ export const useStateStore: TStateUseStore = (Context = StateContext) => {
  * @param {function} selector - selector funtion that accepts state
  * @return {any} returns value from the store
  */
-export function useStateSelector<T extends TSelector>(
-  selector: T
-): ReturnType<T> {
+export function useStateSelector<T extends TSelector>(selector: T): ReturnType<T> {
   const { state } = useStateStore();
 
   return selector(state);
@@ -136,9 +133,7 @@ export const StateProvider = ({
   const contextValue = useMemo(() => ({ state, setState }), [state, setState]);
 
   return (
-    <Context.Provider
-      value={{ state: contextValue.state, setState: contextValue.setState }}
-    >
+    <Context.Provider value={{ state: contextValue.state, setState: contextValue.setState }}>
       {children}
     </Context.Provider>
   );
