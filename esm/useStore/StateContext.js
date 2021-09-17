@@ -65,20 +65,21 @@ export var useStateStore = function (Context) {
     if (Context === void 0) { Context = StateContext; }
     var _a = useContext(Context), state = _a.state, setState = _a.setState;
     var onStateChange = function (newState, callback) {
+        if (callback === void 0) { callback = setState; }
         if (!isEqual(state, newState)) {
             callback(newState);
         }
     };
-    var stateKeyValueChanged = function (key, value) {
-        return stateKeyChanged(state, key, value);
-    };
+    var stateKeyValueChanged = function (key, value) { return stateKeyChanged(state, key, value); };
     var onStateKeyChange = function (key, value, callback) {
         var _a;
+        if (callback === void 0) { callback = setState; }
         if (stateKeyValueChanged(key, value)) {
             callback(__assign(__assign({}, state), (_a = {}, _a[key] = value, _a)));
         }
     };
     var onStateObjectChange = function (passedState, callback) {
+        if (callback === void 0) { callback = setState; }
         var updatedState = __assign({}, state);
         Object.keys(passedState).forEach(function (key) {
             var _a;
