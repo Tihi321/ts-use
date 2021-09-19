@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetch } from "../utils";
 /**
  * For fetching data from api, when data is receive it returns the state
@@ -14,12 +14,13 @@ export var useFetch = function (url, initialState) {
     if (initialState === void 0) { initialState = undefined; }
     var _a = useState(initialState), data = _a[0], setData = _a[1];
     var _b = useState(true), loading = _b[0], setLoading = _b[1];
+    var urlMemo = useMemo(function () { return url; }, [url]);
     useEffect(function () {
-        fetch(url, function (response) {
+        fetch(urlMemo, function (response) {
             setData(response);
             setLoading(false);
         });
-    }, [url]);
+    }, [urlMemo]);
     return { data: data, loading: loading };
 };
 //# sourceMappingURL=useFetch.js.map

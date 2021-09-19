@@ -1,4 +1,4 @@
-import { isFunction } from "lodash";
+import isFunction from "lodash/isFunction";
 import { useEffect, useState } from "react";
 /**
  * This hook returns state after first mount, takes optional callback to run, it can be resolved with promise

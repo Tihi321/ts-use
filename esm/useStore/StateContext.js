@@ -9,7 +9,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual";
 import React, { useContext, useMemo, useState } from "react";
 import { generateSelector, stateKeyChanged } from "../utils";
 import { initialContextState, StateContext } from "./context";

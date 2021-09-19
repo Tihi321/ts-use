@@ -1,3 +1,4 @@
+import { TFetchUrl } from "../typings";
 /**
  * For fetching data from api, when data is receive it returns the state
  * @example
@@ -8,7 +9,7 @@
  * @param {any} initialState - optional initial state of data before received from API
  * @return {object} returns object consisting of data and loading state
  */
-export declare const useFetch: (url: string, initialState?: undefined) => {
+export declare const useFetch: (url: TFetchUrl, initialState?: undefined) => {
     data: undefined;
     loading: boolean;
 };
