@@ -1,5 +1,5 @@
+import isEqual from "lodash/isEqual";
 import { useState } from "react";
-import { isEqual } from "lodash";
 
 /**
  * Hook for reactive state, state that react to the changes from initialState

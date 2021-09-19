@@ -1,5 +1,7 @@
+import get from "lodash/get";
 import { useEffect, useState } from "react";
 
+import { TFetchUrl } from "../typings";
 import { fetch } from "../utils";
 
 /**
@@ -12,7 +14,7 @@ import { fetch } from "../utils";
  * @param {any} initialState - optional initial state of data before received from API
  * @return {object} returns object consisting of data and loading state
  */
-export const useFetch = (url: string, initialState = undefined) => {
+export const useFetch = (url: TFetchUrl, initialState = undefined) => {
   const [data, setData] = useState(initialState);
   const [loading, setLoading] = useState(true);
 
@@ -21,7 +23,7 @@ export const useFetch = (url: string, initialState = undefined) => {
       setData(response);
       setLoading(false);
     });
-  }, [url]);
+  }, []);
 
   return { data, loading };
 };

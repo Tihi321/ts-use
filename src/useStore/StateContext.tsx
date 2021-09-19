@@ -1,4 +1,4 @@
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual";
 import React, { useContext, useMemo, useState } from "react";
 
 import {
