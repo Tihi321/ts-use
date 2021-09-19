@@ -31,6 +31,7 @@ export type TStateUseStore<S = TState, V = TValue> = (
   onStateChange: TOnStateChange<S>;
   onStateKeyChange: TOnStateKeyChange<V>;
   onStateObjectChange: TOnStateKeysChange;
+  useMemoizedValue: (key: string) => any;
 };
 
 export interface IStateProvider<S = TState> extends IProviderProps<S> {

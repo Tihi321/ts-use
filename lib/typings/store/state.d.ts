@@ -13,6 +13,7 @@ export declare type TStateUseStore<S = TState, V = TValue> = (Context?: TContext
     onStateChange: TOnStateChange<S>;
     onStateKeyChange: TOnStateKeyChange<V>;
     onStateObjectChange: TOnStateKeysChange;
+    useMemoizedValue: (key: string) => any;
 };
 export interface IStateProvider<S = TState> extends IProviderProps<S> {
     Context?: TContextState<S>;

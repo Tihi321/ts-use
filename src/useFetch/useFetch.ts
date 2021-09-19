@@ -14,7 +14,7 @@ import { fetch } from "../utils";
  * @param {any} initialState - optional initial state of data before received from API
  * @return {object} returns object consisting of data and loading state
  */
-export const useFetch = (url: TFetchUrl, initialState = undefined) => {
+export const useFetch = (url: TFetchUrl, initialState: any = undefined) => {
   const [data, setData] = useState(initialState);
   const [loading, setLoading] = useState(true);
   const [refetch, setRefetch] = useState(true);

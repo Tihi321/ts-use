@@ -9,8 +9,8 @@ import { TFetchUrl } from "../typings";
  * @param {any} initialState - optional initial state of data before received from API
  * @return {object} returns object consisting of data and loading state
  */
-export declare const useFetch: (url: TFetchUrl, initialState?: undefined) => {
-    data: undefined;
+export declare const useFetch: (url: TFetchUrl, initialState?: any) => {
+    data: any;
     loading: boolean;
     refetch: () => void;
 };
