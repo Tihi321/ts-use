@@ -61,10 +61,14 @@ export var createAction = function (type, payload) { return ({
 export var useReducerStore = function (Context) {
     if (Context === void 0) { Context = ReducerContext; }
     var _a = useContext(Context), state = _a.state, dispatch = _a.dispatch;
-    var stateKeyValueChanged = function (key, value) { return stateKeyChanged(state, key, value); };
-    var onStateKeyChange = function (key, value, callback) {
+    var stateKeyValueChanged = function (key, value, innerState) {
+        if (innerState === void 0) { innerState = state; }
+        return stateKeyChanged(innerState, key, value);
+    };
+    var onStateKeyChange = function (key, value, callback, innerState) {
         if (callback === void 0) { callback = dispatch; }
-        if (stateKeyValueChanged(key, value)) {
+        if (innerState === void 0) { innerState = state; }
+        if (stateKeyValueChanged(key, value, innerState)) {
             callback();
         }
     };

@@ -4,7 +4,8 @@ import { isBrowser } from "../utils";
 
 export const useLocalStorage = (
   key: string,
-  initialState: string | number | boolean | null = null
+  initialState: string | number | boolean | null = null,
+  updateData: boolean = true
 ) => {
   const [data, setData] = useState(initialState);
 
@@ -20,7 +21,10 @@ export const useLocalStorage = (
   const setLocalStorage = (value: string | number | boolean) => {
     if (isWindow && isLcalStorage) {
       localStorage.setItem(key, value);
-      setData(value);
+
+      if (updateData) {
+        setData(value);
+      }
     }
   };
 

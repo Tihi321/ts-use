@@ -1,3 +1,4 @@
+import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import React, { useContext, useMemo, useState } from "react";
 
@@ -66,30 +67,40 @@ import { initialContextState, StateContext } from "./context";
 export const useStateStore: TStateUseStore = (Context = StateContext) => {
   const { state, setState } = useContext(Context);
 
-  const onStateChange: TOnStateChange = (newState, callback = setState) => {
-    if (!isEqual(state, newState)) {
+  const onStateChange: TOnStateChange = (newState, callback = setState, innerState = state) => {
+    if (!isEqual(innerState, newState)) {
       callback(newState);
     }
   };
 
-  const stateKeyValueChanged: TKeyValueChanged = (key, value) => stateKeyChanged(state, key, value);
+  const stateKeyValueChanged: TKeyValueChanged = (key, value, innerState = state) =>
+    stateKeyChanged(innerState, key, value);
 
-  const onStateKeyChange: TOnStateKeyChange = (key, value, callback = setState) => {
-    if (stateKeyValueChanged(key, value)) {
-      callback({ ...state, [key]: value });
+  const onStateKeyChange: TOnStateKeyChange = (
+    key,
+    value,
+    callback = setState,
+    innerState = state
+  ) => {
+    if (stateKeyValueChanged(key, value, innerState)) {
+      callback({ ...innerState, [key]: value });
     }
   };
 
-  const onStateObjectChange: TOnStateKeysChange = (passedState, callback = setState) => {
-    let updatedState = { ...state };
+  const onStateObjectChange: TOnStateKeysChange = (
+    passedState,
+    callback = setState,
+    innerState = state
+  ) => {
+    let updatedState = { ...innerState };
     Object.keys(passedState).forEach((key) => {
-      if (!isEqual(state[key], passedState[key])) {
-        updatedState = { ...state, [key]: passedState[key] };
+      if (!isEqual(get(innerState, key), get(passedState, key))) {
+        updatedState = { ...updatedState, [key]: get(passedState, key) };
       }
     });
 
-    if (!isEqual(state, updatedState)) {
-      callback({ ...state, ...updatedState });
+    if (!isEqual(innerState, updatedState)) {
+      callback({ ...innerState, ...updatedState });
     }
   };
 

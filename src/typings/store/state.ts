@@ -17,7 +17,8 @@ export type TContextState<S = TState> = React.Context<{
 
 export type TOnStateChange<S = TState> = (
   state: S,
-  callback?: Function
+  callback?: Function,
+  innerState?: any
 ) => void;
 
 export type TStateUseStore<S = TState, V = TValue> = (

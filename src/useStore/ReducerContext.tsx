@@ -63,10 +63,16 @@ export const createAction: TCreateAction = (type, payload) => ({
 export const useReducerStore: TReducerUseStore = (Context = ReducerContext) => {
   const { state, dispatch } = useContext(Context);
 
-  const stateKeyValueChanged: TKeyValueChanged = (key, value) => stateKeyChanged(state, key, value);
+  const stateKeyValueChanged: TKeyValueChanged = (key, value, innerState = state) =>
+    stateKeyChanged(innerState, key, value);
 
-  const onStateKeyChange: TOnStateKeyChange = (key, value, callback = dispatch) => {
-    if (stateKeyValueChanged(key, value)) {
+  const onStateKeyChange: TOnStateKeyChange = (
+    key,
+    value,
+    callback = dispatch,
+    innerState = state
+  ) => {
+    if (stateKeyValueChanged(key, value, innerState)) {
       callback();
     }
   };

@@ -9,6 +9,7 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import React, { useContext, useMemo, useState } from "react";
 import { generateSelector, stateKeyChanged } from "../utils";
@@ -64,31 +65,37 @@ import { initialContextState, StateContext } from "./context";
 export var useStateStore = function (Context) {
     if (Context === void 0) { Context = StateContext; }
     var _a = useContext(Context), state = _a.state, setState = _a.setState;
-    var onStateChange = function (newState, callback) {
+    var onStateChange = function (newState, callback, innerState) {
         if (callback === void 0) { callback = setState; }
-        if (!isEqual(state, newState)) {
+        if (innerState === void 0) { innerState = state; }
+        if (!isEqual(innerState, newState)) {
             callback(newState);
         }
     };
-    var stateKeyValueChanged = function (key, value) { return stateKeyChanged(state, key, value); };
-    var onStateKeyChange = function (key, value, callback) {
+    var stateKeyValueChanged = function (key, value, innerState) {
+        if (innerState === void 0) { innerState = state; }
+        return stateKeyChanged(innerState, key, value);
+    };
+    var onStateKeyChange = function (key, value, callback, innerState) {
         var _a;
         if (callback === void 0) { callback = setState; }
-        if (stateKeyValueChanged(key, value)) {
-            callback(__assign(__assign({}, state), (_a = {}, _a[key] = value, _a)));
+        if (innerState === void 0) { innerState = state; }
+        if (stateKeyValueChanged(key, value, innerState)) {
+            callback(__assign(__assign({}, innerState), (_a = {}, _a[key] = value, _a)));
         }
     };
-    var onStateObjectChange = function (passedState, callback) {
+    var onStateObjectChange = function (passedState, callback, innerState) {
         if (callback === void 0) { callback = setState; }
-        var updatedState = __assign({}, state);
+        if (innerState === void 0) { innerState = state; }
+        var updatedState = __assign({}, innerState);
         Object.keys(passedState).forEach(function (key) {
             var _a;
-            if (!isEqual(state[key], passedState[key])) {
-                updatedState = __assign(__assign({}, state), (_a = {}, _a[key] = passedState[key], _a));
+            if (!isEqual(get(innerState, key), get(passedState, key))) {
+                updatedState = __assign(__assign({}, updatedState), (_a = {}, _a[key] = get(passedState, key), _a));
             }
         });
-        if (!isEqual(state, updatedState)) {
-            callback(__assign(__assign({}, state), updatedState));
+        if (!isEqual(innerState, updatedState)) {
+            callback(__assign(__assign({}, innerState), updatedState));
         }
     };
     var useMemoizedValue = function (key) {
