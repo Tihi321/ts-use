@@ -42,7 +42,12 @@ export const fetch = (
       fetchUrl = urlString;
     }
 
-    fetchData(fetchUrl, get(url, "options"))
+    const sufix = get(url, "suffix");
+
+    fetchData(
+      !isEmpty(sufix) ? `${fetchUrl}${sufix}` : fetchUrl,
+      get(url, "options")
+    )
       .then(response => {
         if (!response.ok) {
           throw new Error(response.statusText);

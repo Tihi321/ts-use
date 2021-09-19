@@ -7,5 +7,6 @@ export declare type TFetchUrl = string | {
     url: string;
     options?: RequestInit;
     query?: TFetchQuery[];
+    suffix?: string;
 };
 //# sourceMappingURL=fetch.d.ts.map

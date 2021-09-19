@@ -11,4 +11,5 @@ export type TFetchUrl =
       url: string;
       options?: RequestInit;
       query?: TFetchQuery[];
+      suffix?: string;
     };

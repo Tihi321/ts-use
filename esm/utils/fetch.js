@@ -31,7 +31,8 @@ export var fetch = function (url, toCall, nodeFetchCallback) {
         else {
             fetchUrl = urlString;
         }
-        fetchData(fetchUrl, get(url, "options"))
+        var sufix = get(url, "suffix");
+        fetchData(!isEmpty(sufix) ? "" + fetchUrl + sufix : fetchUrl, get(url, "options"))
             .then(function (response) {
             if (!response.ok) {
                 throw new Error(response.statusText);
