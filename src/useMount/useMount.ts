@@ -1,4 +1,4 @@
-import { isFunction } from "lodash";
+import isFunction from "lodash/isFunction";
 import { useEffect, useState } from "react";
 
 type TUseMountOptions = {
