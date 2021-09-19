@@ -12,5 +12,6 @@ import { TFetchUrl } from "../typings";
 export declare const useFetch: (url: TFetchUrl, initialState?: undefined) => {
     data: undefined;
     loading: boolean;
+    refetch: () => void;
 };
 //# sourceMappingURL=useFetch.d.ts.map

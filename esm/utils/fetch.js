@@ -7,12 +7,14 @@ export var fetch = function (url, toCall, nodeFetchCallback) {
     if (nodeFetchCallback === void 0) { nodeFetchCallback = nodeFetch; }
     var fetchData = isBrowser() && window.fetch ? window.fetch : nodeFetchCallback;
     if (typeof url === "string") {
-        fetchData(url).then(function (response) {
+        fetchData(url)
+            .then(function (response) {
             if (!response.ok) {
                 throw new Error(response.statusText);
             }
-            toCall(response.json());
-        });
+            return response.json();
+        })
+            .then(function (response) { return toCall(response); });
     }
     else {
         var fetchUrl = void 0;
@@ -29,12 +31,14 @@ export var fetch = function (url, toCall, nodeFetchCallback) {
         else {
             fetchUrl = urlString;
         }
-        fetchData(fetchUrl, get(url, "options")).then(function (response) {
+        fetchData(fetchUrl, get(url, "options"))
+            .then(function (response) {
             if (!response.ok) {
                 throw new Error(response.statusText);
             }
-            toCall(response.json());
-        });
+            return response.json();
+        })
+            .then(function (response) { return toCall(response); });
     }
 };
 //# sourceMappingURL=fetch.js.map

@@ -1,3 +1,4 @@
+import isEmpty from "lodash/isEmpty";
 import { useEffect, useMemo, useState } from "react";
 
 import { TFetchUrl } from "../typings";
@@ -16,14 +17,17 @@ import { fetch } from "../utils";
 export const useFetch = (url: TFetchUrl, initialState = undefined) => {
   const [data, setData] = useState(initialState);
   const [loading, setLoading] = useState(true);
+  const [refetch, setRefetch] = useState(true);
   const urlMemo = useMemo(() => url, [url]);
 
   useEffect(() => {
-    fetch(urlMemo, (response: any) => {
-      setData(response);
-      setLoading(false);
-    });
-  }, [urlMemo]);
+    if (!isEmpty(urlMemo)) {
+      fetch(urlMemo, (response: any) => {
+        setData(response);
+        setLoading(false);
+      });
+    }
+  }, [urlMemo, refetch]);
 
-  return { data, loading };
+  return { data, loading, refetch: () => setRefetch(!refetch) };
 };

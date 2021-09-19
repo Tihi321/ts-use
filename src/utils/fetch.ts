@@ -15,13 +15,15 @@ export const fetch = (
     isBrowser() && window.fetch ? window.fetch : nodeFetchCallback;
 
   if (typeof url === "string") {
-    fetchData(url).then(response => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
+    fetchData(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
 
-      toCall(response.json());
-    });
+        return response.json();
+      })
+      .then(response => toCall(response));
   } else {
     let fetchUrl;
     const urlString = get(url, "url");
@@ -40,12 +42,14 @@ export const fetch = (
       fetchUrl = urlString;
     }
 
-    fetchData(fetchUrl, get(url, "options")).then(response => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
+    fetchData(fetchUrl, get(url, "options"))
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
 
-      toCall(response.json());
-    });
+        return response.json();
+      })
+      .then(response => toCall(response));
   }
 };

@@ -44,7 +44,7 @@
 
 - **Network**
 
-  - [`useFetch`](./src/example/useFetch/index.tsx) &mdash; hook for using fetch in React, work on SSR also, as it checks to use node or window fetch
+  - [`useFetch`](./src/example/useFetch/index.tsx) &mdash; hook for using fetch in React, work on SSR also, as it checks to use node or window fetch, suppoers optional queryBuilder
     <br/>
     <br/>
 
