@@ -1,6 +1,6 @@
 // eslint-disable-next-line eslint-comments/disable-enable-pair
 /* eslint-disable react-hooks/rules-of-hooks */
-import { map } from "lodash";
+import map from "lodash/map";
 import { useEffect, useMemo } from "react";
 import { isBrowser } from "../utils";
 /**

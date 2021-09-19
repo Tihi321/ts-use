@@ -1,4 +1,4 @@
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual";
 export var generateSelector = function (initialState) { return function () { return initialState; }; };
 var stateFunctionKeyChanged = function (state, key, value) {
     var stateValue = state[key] ? state[key].toString() : state[key];
