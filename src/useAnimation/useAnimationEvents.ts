@@ -28,7 +28,7 @@ export const useAnimationEvents = (
   props?: TUseAnimationProps
 ): {
   exited: boolean;
-  onAnimationEnd: (event?: Event) => void;
+  onAnimationEnd: () => void;
 } => {
   const defaultDelay = props?.delay || 0;
   const defaultOnExit = props?.onExit as () => void;

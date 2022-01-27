@@ -1,4 +1,4 @@
-import { TFetchUrl } from "../typings";
+import { TFetchUrl } from "tsl-utils";
 /**
  * For fetching data from api, when data is receive it returns the state
  * @example

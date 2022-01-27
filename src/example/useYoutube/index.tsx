@@ -14,7 +14,7 @@ export const Youtube = (params: IYoutubeProps) => {
   const { addElement } = useYoutube({
     videoId: params.videoId,
     options: params.options,
-    events: params.events
+    events: params.events,
   });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -22,7 +22,7 @@ export const Youtube = (params: IYoutubeProps) => {
 
   return (
     <div className="youtube-container">
-      <div ref={youtubeRef} className="youtube-element" />
+      <div ref={youtubeRef as any} className="youtube-element" />
     </div>
   );
 };

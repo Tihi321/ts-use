@@ -5,6 +5,7 @@ export * from "./useState";
 export * from "./useLocalStorage";
 export * from "./useAsyncStorage";
 export * from "./useStore";
+export * from "./usePromise";
 export * from "./useFetch";
 export * from "./useMount";
 export * from "./useYoutube";

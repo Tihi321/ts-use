@@ -1,10 +1,10 @@
 import isEmpty from "lodash/isEmpty";
 import { useEffect, useRef, useState } from "react";
+import { isBrowser } from "tsl-utils";
 import Player from "youtube-player";
 
 import { EventTypes, IFrameStates, PlayerState } from "../enums";
 import { TYoutubeEvents, TYoutubeOptions, YoutubeEvent } from "../typings";
-import { isBrowser } from "../utils";
 
 type TUseYoutubeProps = {
   videoId: string;

@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import map from "lodash/map";
 import { useEffect, useMemo } from "react";
-import { isBrowser } from "../utils";
+import { isBrowser } from "tsl-utils";
 /**
  * Use mutation Observer with this hook in react. Safe with SSR rendering
  * @example

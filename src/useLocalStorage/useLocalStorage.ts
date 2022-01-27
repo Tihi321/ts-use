@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-import { isBrowser } from "../utils";
+import { isBrowser } from "tsl-utils";
 
 export const useLocalStorage = (
   key: string,
@@ -20,7 +19,7 @@ export const useLocalStorage = (
 
   const setLocalStorage = (value: string | number | boolean) => {
     if (isWindow && isLcalStorage) {
-      localStorage.setItem(key, value);
+      localStorage.setItem(key, value as string);
 
       if (updateData) {
         setData(value);

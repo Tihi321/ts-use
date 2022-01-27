@@ -6,10 +6,10 @@ export const useDelayMount = () => {
   const mounted = useMount(
     {
       onPromise: resolve => {
-        timeout = setTimeout(() => {
+        timeout = (setTimeout(() => {
           clearTimeout(timeout);
           resolve();
-        }, 500);
+        }, 500) as unknown) as NodeJS.Timeout;
       }
     },
     () => {

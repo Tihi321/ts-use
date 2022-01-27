@@ -5,7 +5,7 @@ export var Youtube = function (params) {
     var addElement = useYoutube({
         videoId: params.videoId,
         options: params.options,
-        events: params.events
+        events: params.events,
     }).addElement;
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(function () { return addElement(youtubeRef.current); }, [youtubeRef.current]);

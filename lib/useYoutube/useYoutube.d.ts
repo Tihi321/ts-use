@@ -1,4 +1,5 @@
 /// <reference types="react" />
+/// <reference types="web" />
 import { TYoutubeEvents, TYoutubeOptions } from "../typings";
 declare type TUseYoutubeProps = {
     videoId: string;

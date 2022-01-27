@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { isBrowser } from "../utils";
+import { isBrowser } from "tsl-utils";
 export var useLocalStorage = function (key, initialState, updateData) {
     if (initialState === void 0) { initialState = null; }
     if (updateData === void 0) { updateData = true; }

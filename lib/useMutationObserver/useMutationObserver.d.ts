@@ -1,4 +1,5 @@
 /// <reference types="react" />
+/// <reference types="web" />
 interface IMutations {
     addedNodes: HTMLElement[];
     attributeName: string;

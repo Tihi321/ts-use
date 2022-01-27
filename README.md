@@ -21,6 +21,7 @@
 
   - [`useLocalStorage`](./src/example/localStorage/index.tsx) &mdash; hook for managing local storage. Safe with SSR rendering.
   - [`useMutationObserver`](./src/example/useMutationObserver/index.tsx) &mdash; Use mutation Observer with this hook in react. Safe with SSR rendering.
+  - `usePromiseMap` &mdash; Resolves array of promises within react in a non blocking way.
     <br/>
     <br/>
 

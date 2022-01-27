@@ -1,6 +1,6 @@
 import isEmpty from "lodash/isEmpty";
 import { useEffect, useMemo, useState } from "react";
-import { fetch } from "../utils";
+import { fetchApi } from "tsl-utils";
 /**
  * For fetching data from api, when data is receive it returns the state
  * @example
@@ -19,7 +19,7 @@ export var useFetch = function (url, initialState) {
     var urlMemo = useMemo(function () { return url; }, [url]);
     useEffect(function () {
         if (!isEmpty(urlMemo)) {
-            fetch(urlMemo, function (response) {
+            fetchApi(urlMemo, function (response) {
                 setData(response);
                 setLoading(false);
             });

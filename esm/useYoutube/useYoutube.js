@@ -1,8 +1,8 @@
 import isEmpty from "lodash/isEmpty";
 import { useEffect, useRef, useState } from "react";
+import { isBrowser } from "tsl-utils";
 import Player from "youtube-player";
 import { EventTypes, IFrameStates, PlayerState } from "../enums";
-import { isBrowser } from "../utils";
 export var useYoutube = function (_a) {
     var videoId = _a.videoId, options = _a.options, events = _a.events;
     var _b = useState({}), element = _b[0], setElement = _b[1];

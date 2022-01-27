@@ -1,4 +1,3 @@
-/// <reference types="react" />
 export declare type TUseAnimationProps = {
     delay?: number;
     onExit?: () => void;
@@ -23,6 +22,6 @@ export declare type TUseAnimationProps = {
  */
 export declare const useAnimationEvents: (props?: TUseAnimationProps | undefined) => {
     exited: boolean;
-    onAnimationEnd: (event?: Event | undefined) => void;
+    onAnimationEnd: () => void;
 };
 //# sourceMappingURL=useAnimationEvents.d.ts.map

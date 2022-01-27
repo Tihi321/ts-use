@@ -1,4 +1,5 @@
 /// <reference types="react" />
+/// <reference types="web" />
 import { PlayerState } from "../../enums";
 export declare type TYoutubeOptions = {
     autoplay?: boolean;

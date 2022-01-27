@@ -2,8 +2,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import map from "lodash/map";
 import { useEffect, useMemo } from "react";
-
-import { isBrowser } from "../utils";
+import { isBrowser } from "tsl-utils";
 
 declare let MutationObserver: any;
 interface IMutations {
