@@ -5182,15 +5182,13 @@ tsconfig-paths@^3.9.0:
     minimist "^1.2.0"
     strip-bom "^3.0.0"
 
-tsl-utils@^1.0.23:
-  version "1.0.23"
-  resolved "https://registry.yarnpkg.com/tsl-utils/-/tsl-utils-1.0.23.tgz#93420098b42687addafefd1b684e5e0726dc36e7"
-  integrity sha512-neWw6c0XW+XocpRTF7cSAJGztQbRvq69bCImltPMeyZhICdbgLLKQci4MxdxH5r+30JCDEExW8nfs5g+Oa3QDw==
+tsl-utils@^1.0.27:
+  version "1.0.27"
+  resolved "https://registry.yarnpkg.com/tsl-utils/-/tsl-utils-1.0.27.tgz#be39a8b4d434bd040b5e88ad4315fad8fffa56c8"
+  integrity sha512-krmVlya1Q8d0ZX0/vtOllM+7d+Wqal6QAODR6LH35dWnezL4a9h34cIV5/ypidDgg01DVwYgMLuFynB9VuAN5A==
   dependencies:
-    "@types/node-fetch" "^2.5.10"
     "@types/web" "^0.0.50"
     lodash "^4.17.21"
-    node-fetch "^2.6.1"
 
 tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
