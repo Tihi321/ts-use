@@ -2,7 +2,7 @@ import isEqual from "lodash/isEqual";
 
 import { TState, TValue } from "../typings";
 
-export const generateSelector = (initialState: any) => () => initialState;
+export { generateSelector } from "tsl-utils";
 
 const stateFunctionKeyChanged = (state: TState, key: string, value: TValue) => {
   const stateValue = state[key] ? state[key].toString() : state[key];

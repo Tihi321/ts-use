@@ -5182,10 +5182,10 @@ tsconfig-paths@^3.9.0:
     minimist "^1.2.0"
     strip-bom "^3.0.0"
 
-tsl-utils@^1.0.27:
-  version "1.0.27"
-  resolved "https://registry.yarnpkg.com/tsl-utils/-/tsl-utils-1.0.27.tgz#be39a8b4d434bd040b5e88ad4315fad8fffa56c8"
-  integrity sha512-krmVlya1Q8d0ZX0/vtOllM+7d+Wqal6QAODR6LH35dWnezL4a9h34cIV5/ypidDgg01DVwYgMLuFynB9VuAN5A==
+tsl-utils@^1.0.28:
+  version "1.0.28"
+  resolved "https://registry.yarnpkg.com/tsl-utils/-/tsl-utils-1.0.28.tgz#84d2bab0029159e2da8aa9ce959618fa9b391f52"
+  integrity sha512-7Q0qrXtiDqW4N3zVvqZcnzSVPb6x5FX9MZMADz5MOcsNzw2/PNH27wl+fdLqy3W00GBEmBCfEVP0ItGUdhqi6A==
   dependencies:
     "@types/web" "^0.0.50"
     lodash "^4.17.21"
