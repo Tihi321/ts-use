@@ -10,4 +10,5 @@ export * from "./useFetch";
 export * from "./useMount";
 export * from "./useYoutube";
 export * from "./useMutationObserver";
+export * from "./hoc";
 //# sourceMappingURL=index.js.map

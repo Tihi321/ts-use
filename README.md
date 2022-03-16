@@ -53,6 +53,10 @@
 
   - [`useYoutube`](./src/example/useYoutube/index.tsx) &mdash; hook to add youtube player logic to component based on [Youtube Player](youtube-player) library.
 
+- **HOC**
+
+  - `withHooksHOC` &mdash; Add hooks data to class component.
+
 - **React Native**
   - `useAsyncStorage` &mdash; hook for managing storage within react native.
     <br/>
